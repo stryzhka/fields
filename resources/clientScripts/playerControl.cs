@@ -25,7 +25,7 @@ public class playerControl : MonoBehaviour
     		
     	}
         transform.rotation = Quaternion.Euler(0, 0, 0);
-    	 
+    	 //
     }
     
 }

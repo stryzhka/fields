@@ -8,10 +8,12 @@ public abstract class Item
     public string path;
     public int price;
     public string imagePath;
-    public Item(string n, string p, int pr, string iP){
+    public string descPath;
+    public Item(string n, string p, int pr, string iP, string dP){
     	this.name = n;
     	this.path = p;
     	this.imagePath = iP;
     	this.price = pr;
+        this.descPath = dP;
     }
 }
