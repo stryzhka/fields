@@ -2,25 +2,41 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class inventoryCell : MonoBehaviour
+public class inventoryCell : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public Weapon _weapon;
     public Treasure _treas;
     public Weapon _put;
     public string path;
+    public GameObject descPanel;
     void Start()
     {
         //_weapon = new Weapon(10, 0.01f, "normal", "Dick");
         gameObject.GetComponent<Button>().onClick.AddListener(takeItem);
         gameObject.GetComponentInChildren<Text>().text = "Press to equip " + _weapon.name + "\n" + "Damage: " + _weapon.baseDamage + "\n" + "Effect: " + _weapon.effect + "\n" + "Delay: " + _weapon.delay;
         path = _weapon.path;
+        descPanel = GameObject.Find("descPanel");
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        print ("here");
+        descPanel.SetActive(true);
+        descPanel.transform.GetChild(0).GetComponent<Text>().text = loader.loadDesc(_weapon.descPath);
+        
+   }
+ 
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        print ("not here");
+        descPanel.SetActive(false);
     }
     void takeItem(){
     	print("Now item " + _weapon.name);

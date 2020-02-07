@@ -10,7 +10,7 @@ public class Weapon : Item
     public string effect;
     public int effectChance;
     public int effectDamage;
-    public Weapon(string n, string p, string ip, int pr, int bD, float d, string s, int ec, int ed) :base(n, p, pr, ip){
+    public Weapon(string n, string p, string ip, int pr, int bD, float d, string s, int ec, int ed, string dP) :base(n, p, pr, ip, dP){
 
     	this.baseDamage = bD;
     	this.effect = s;

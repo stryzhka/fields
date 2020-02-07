@@ -53,4 +53,10 @@ public class loader
          
 
     }
+    public string loadDesc(string path){
+        TextAsset ta = Resources.Load<TextAsset>(path);
+        string jsonObj = ta.ToString();
+        Description _desc = JsonUtility.FromJson<Description>(jsonObj);
+        return _desc.desc;
+    }
 }
