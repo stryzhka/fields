@@ -16,6 +16,7 @@ public class deathCheck : MonoBehaviour
     {
         playerStats.checkForDeath();
         if (playerStats.dead){
+            playerStats.setDataHp();
     		SceneManager.LoadScene("city1", LoadSceneMode.Single);
     		playerStats.dead = false;
         }
