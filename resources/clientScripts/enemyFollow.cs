@@ -34,6 +34,7 @@ public class enemyFollow : MonoBehaviour
     public int zapSpeed;
     public GameObject money;
     public float waitTime;
+    public GameObject zapEffect;
     void Start()
     {
         canHit = true;
@@ -211,6 +212,8 @@ public class enemyFollow : MonoBehaviour
 
     	if (Vector2.Distance(transform.position, player.transform.position) <= minDist){
     		if (canHit){
+                player.GetComponent<soundController>().zapSound.Stop();
+                player.GetComponent<soundController>().hit.Play();
     			if (slagged){
                     if (playerStats.currentWeap.effect == "slag") hp -= playerStats.calculateDamage();
                     else hp -= playerStats.calculateDamage() * 2;
@@ -234,6 +237,8 @@ public class enemyFollow : MonoBehaviour
                         if (random <= playerStats.currentWeap.effectChance){
                             print ("ZAPPED!");
                             zapped = true;
+                            player.GetComponent<soundController>().zapSound.Play();
+                            GameObject _zapEffect = Instantiate(zapEffect, transform.position, Quaternion.identity);
                             
                         }else print ("Random: " + random);
                         break;
