@@ -63,6 +63,14 @@ public class enemyFollow : MonoBehaviour
     	
     	
     }
+    public IEnumerator rotate(){
+        
+            player.GetComponent<uiUpdater>().doRotating = true;
+            yield return new WaitForSeconds(1f);
+            player.GetComponent<uiUpdater>().doRotating = false;
+        
+        
+    }
     public IEnumerator effectsCheck(){
     	while (timer > 0){
 				if (burning){
@@ -250,8 +258,11 @@ public class enemyFollow : MonoBehaviour
 		if (Vector2.Distance(player.transform.position, transform.position) <= minDist){
 			if (canHitEnemy){
 				print ("attacking!");
-                if (!burning)
-				playerStats.hp -= damage;
+                if (!burning){
+                    playerStats.hp -= damage;
+                    StartCoroutine(rotate());
+                }
+				
 				else playerStats.hp -= damage / 2;
 				StartCoroutine(waitEnemy());
 			}//else print ("waiting");
