@@ -13,6 +13,7 @@ public class inventoryManager : MonoBehaviour
     public bool isCleaning;
     public Text currentWeapText;
     public Button open;
+    public GameObject descPanel;
     void Start()
     {
         isActive = false;
@@ -41,7 +42,15 @@ public class inventoryManager : MonoBehaviour
         
     }
     void openInventory(){
-    	if (isActive) isActive = false;
+    	if (isActive){
+            Color tempText = descPanel.transform.GetChild(0).gameObject.GetComponent<Text>().color;
+            Color temp = descPanel.GetComponent<Image>().color;
+            temp.a=0.0f;
+            tempText.a = 0.0f;
+            descPanel.transform.GetChild(0).gameObject.GetComponent<Text>().color = tempText;
+            descPanel.GetComponent<Image>().color = temp;
+            isActive = false;
+            } 
         else isActive = true;
         //print ("eheg");
         saveWeapons();

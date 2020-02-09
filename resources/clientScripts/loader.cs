@@ -22,6 +22,12 @@ public class loader
 	    Debug.Log(_weapon.info());
     	return _weapon;
     }
+    public string loadDesc(string path){
+        TextAsset ta = Resources.Load<TextAsset>(path);
+        string jsonObj = ta.ToString();
+        Description _desc = JsonUtility.FromJson<Description>(jsonObj);
+        return _desc.desc;
+    }
     public string loadList(string path){
     	TextAsset ta = Resources.Load<TextAsset>(path);
         string jsonObj = ta.ToString();
@@ -53,10 +59,5 @@ public class loader
          
 
     }
-    public string loadDesc(string path){
-        TextAsset ta = Resources.Load<TextAsset>(path);
-        string jsonObj = ta.ToString();
-        Description _desc = JsonUtility.FromJson<Description>(jsonObj);
-        return _desc.desc;
-    }
+    
 }

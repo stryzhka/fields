@@ -59,6 +59,24 @@ public static class playerStats
 
     	//currentWeap = loadWeapons(PlayerPrefs.GetString("inventory1"));
     }
+    public static void setDataHp(){
+      Debug.Log("Money: " + money);
+      Debug.Log("level:" + level);
+      Debug.Log("exp: " + exp);
+      Debug.Log("exp req: " + expReq);
+      Debug.Log("maxhp: " + maxHp);
+      Debug.Log("damage: " + damage);
+      Debug.Log("inventoryLimit: " + inventoryLimit);
+      PlayerPrefs.SetInt("playerLevel", level);
+      PlayerPrefs.SetInt("playerExp", exp);
+      PlayerPrefs.SetInt("playerExpReq", expReq);
+      PlayerPrefs.SetInt("playerMoney", money);
+      PlayerPrefs.SetInt("playerHp", maxHp);
+      PlayerPrefs.SetInt("maxPlayerHp", maxHp);
+      PlayerPrefs.SetInt("curDamage", damage);
+      PlayerPrefs.SetInt("inventoryLimit", inventoryLimit);
+      PlayerPrefs.SetString("curPath", curPath);
+    }
     public static void loadAllData(){
    		
    		level = PlayerPrefs.GetInt("playerLevel");
