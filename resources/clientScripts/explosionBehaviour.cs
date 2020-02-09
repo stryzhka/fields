@@ -5,6 +5,7 @@ using UnityEngine;
 public class explosionBehaviour : MonoBehaviour
 {
     // Start is called before the first frame update
+    public int damage;
     void Start()
     {
         
@@ -22,7 +23,7 @@ public class explosionBehaviour : MonoBehaviour
     }
     void OnCollisionEnter2D(Collision2D col){
     	if (col.gameObject.tag == "enemy"){
-    		col.gameObject.GetComponent<enemyFollow>().hp -= 5;
+    		col.gameObject.GetComponent<enemyFollow>().hp -= damage;
     	}
     }
 }
