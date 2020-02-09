@@ -11,13 +11,16 @@ public class inventoryCell : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     public Weapon _put;
     public string path;
     public GameObject descPanel;
+    public loader loader;
     void Start()
     {
         //_weapon = new Weapon(10, 0.01f, "normal", "Dick");
+        descPanel = GameObject.Find("descPanel");
         gameObject.GetComponent<Button>().onClick.AddListener(takeItem);
         gameObject.GetComponentInChildren<Text>().text = "Press to equip " + _weapon.name + "\n" + "Damage: " + _weapon.baseDamage + "\n" + "Effect: " + _weapon.effect + "\n" + "Delay: " + _weapon.delay;
         path = _weapon.path;
-        descPanel = GameObject.Find("descPanel");
+        
+        loader = new loader();
     }
 
     // Update is called once per frame
@@ -27,8 +30,14 @@ public class inventoryCell : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
+        print ("descript:" + loader.loadDesc(_weapon.descPath));
         print ("here");
-        descPanel.SetActive(true);
+        Color tempText = descPanel.transform.GetChild(0).gameObject.GetComponent<Text>().color;
+        Color temp = descPanel.GetComponent<Image>().color;
+        temp.a = 1.0f;
+        tempText.a = 1.0f;
+        descPanel.GetComponent<Image>().color = temp;
+        descPanel.transform.GetChild(0).gameObject.GetComponent<Text>().color = tempText;
         descPanel.transform.GetChild(0).GetComponent<Text>().text = loader.loadDesc(_weapon.descPath);
         
    }
@@ -36,7 +45,13 @@ public class inventoryCell : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     public void OnPointerExit(PointerEventData eventData)
     {
         print ("not here");
-        descPanel.SetActive(false);
+        Color tempText = descPanel.transform.GetChild(0).gameObject.GetComponent<Text>().color;
+        Color temp = descPanel.GetComponent<Image>().color;
+        temp.a=0.0f;
+        tempText.a = 0.0f;
+        descPanel.transform.GetChild(0).gameObject.GetComponent<Text>().color = tempText;
+        descPanel.GetComponent<Image>().color = temp;
+        //descPanel.SetActive(false);
     }
     void takeItem(){
     	print("Now item " + _weapon.name);
@@ -60,6 +75,7 @@ public class inventoryCell : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             print ("Curpath: " + playerStats.curPath);
             Destroy(gameObject);
         }
+        descPanel.transform.GetChild(0).GetComponent<Text>().text = loader.loadDesc(_weapon.descPath);
     	
     }
 }
