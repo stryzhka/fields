@@ -4,11 +4,16 @@ using UnityEngine;
 
 public class playerDataInit : MonoBehaviour
 {
-   
+   public bool training;
     void Start()
     {
       //playerStats.setDummyData();
-      playerStats.loadAllData();
+      if (training){
+        loader loader = new loader();
+        playerStats.setTutorialData();
+        playerStats.currentWeap = loader.loadWeapon("dataFiles/weapons/noweap");
+        } 
+      else playerStats.loadAllData();
       print ("DATA LOADED");
     }
     void Update(){
@@ -21,6 +26,11 @@ public class playerDataInit : MonoBehaviour
     		print ("DATA SAVED");
     		} 
     	//print (playerStats.curPath);
+    }
+    void OnApplicationQuit()
+    {
+        Debug.Log("Application ending after " + Time.time + " seconds");
+        playerStats.setAllData();
     }
 
 }

@@ -19,6 +19,7 @@ public class inventoryManager : MonoBehaviour
         isActive = false;
         loadWeapons();
         open.onClick.AddListener(openInventory);
+        descPanel = GameObject.Find("descPanel");
     }
 
     // Update is called once per frame
