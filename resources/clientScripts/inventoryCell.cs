@@ -38,7 +38,7 @@ public class inventoryCell : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         tempText.a = 1.0f;
         descPanel.GetComponent<Image>().color = temp;
         descPanel.transform.GetChild(0).gameObject.GetComponent<Text>().color = tempText;
-        descPanel.transform.GetChild(0).GetComponent<Text>().text = loader.loadDesc(_weapon.descPath);
+        descPanel.transform.GetChild(0).GetComponent<Text>().text = loader.loadDesc(_weapon.descPath) /*+ _weapon.descInfo()*/;
         
    }
  
@@ -68,7 +68,7 @@ public class inventoryCell : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             Sprite image = Resources.Load<Sprite>(_weapon.imagePath);
             transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().sprite = image;
         }else {
-            playerStats.find(path);
+            playerStats.find(path, "inventory");
             playerStats.currentWeap = _weapon;
             path = _weapon.path;
             playerStats.curPath = _weapon.path;

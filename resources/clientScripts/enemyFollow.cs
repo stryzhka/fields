@@ -35,6 +35,8 @@ public class enemyFollow : MonoBehaviour
     public GameObject money;
     public float waitTime;
     public GameObject zapEffect;
+    public GameObject fireEffect;
+    public GameObject uiControl;
     void Start()
     {
         canHit = true;
@@ -66,9 +68,9 @@ public class enemyFollow : MonoBehaviour
     }
     public IEnumerator rotate(){
         
-            player.GetComponent<uiUpdater>().doRotating = true;
+            uiControl.GetComponent<uiUpdater>().doRotating = true;
             yield return new WaitForSeconds(1f);
-            player.GetComponent<uiUpdater>().doRotating = false;
+            uiControl.GetComponent<uiUpdater>().doRotating = false;
         
         
     }
@@ -229,6 +231,7 @@ public class enemyFollow : MonoBehaviour
     					if (random <= playerStats.currentWeap.effectChance){
     						print ("BURNING!");
     						burning = true;
+                            GameObject _fireEffect = Instantiate(fireEffect, transform.position, Quaternion.identity);
     						
     					}else print ("Random: " + random);
     					break;

@@ -38,7 +38,7 @@ public class inventoryManager : MonoBehaviour
         		isCleaning = true;
         		cleanInventoryEntries();
         } 
-        currentWeapText.text = "Current Weapon: " + playerStats.currentWeap.name + "\n" + "Damage: " + playerStats.currentWeap.baseDamage + "\n" + "Effect: " + playerStats.currentWeap.effect + "\n" + "Delay: " + playerStats.currentWeap.delay;
+        currentWeapText.text = "Current Weapon: " + playerStats.currentWeap.name + "\n" + "Damage: " + playerStats.currentWeap.baseDamage + "\n" + "Effect: " + playerStats.currentWeap.effect + "\n" + "Delay: " + playerStats.currentWeap.delay + "\n" + "Ambitions damage: " + playerStats.ambDamage;
         
         
     }

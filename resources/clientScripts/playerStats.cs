@@ -13,6 +13,7 @@ public static class playerStats
    public static int maxHp;
    public static int magicEnergy;
    public static int damage;
+   public static int ambDamage;
    public static int inventoryLimit;
    public static Weapon currentWeap;
    public static string curPath;
@@ -21,14 +22,14 @@ public static class playerStats
    public static void setDummyData(){
    	loader loader = new loader();
     cleanInventoryEntries();
+    ambDamage = 0;
    	level = 1;
-   	expReq = 20;
+   	expReq = 100;
    	exp = 1;
    	money = 100;
    	hp = 30;
    	magicEnergy = 30;
-   	maxHp = 30;
-   	damage = 3;
+   	maxHp = 50;
    	inventoryLimit = 5;
     curPath = "dataFiles/weapons/knife";
    	weapons = new List<Weapon>();
@@ -37,6 +38,24 @@ public static class playerStats
    	currentWeap = weapons[0];
     setAllData();
    }
+   public static void setTutorialData(){
+    loader loader = new loader();
+    ambDamage = 0;
+    level = 1;
+    expReq = 100;
+    exp = 1;
+    money = 100;
+    hp = 30;
+    magicEnergy = 30;
+    maxHp = 50;
+    inventoryLimit = 5;
+    curPath = "dataFiles/weapons/knife";
+    weapons = new List<Weapon>();
+    weapons.Add(loader.loadWeapon("dataFiles/weapons/knife"));
+    Debug.Log(weapons[0].name);
+    currentWeap = weapons[0];
+    
+   }
    public static void setAllData(){
    		Debug.Log("Money: " + money);
       Debug.Log("level:" + level);
@@ -44,7 +63,6 @@ public static class playerStats
       Debug.Log("exp req: " + expReq);
       Debug.Log("hp: " + hp);
       Debug.Log("maxhp: " + maxHp);
-      Debug.Log("damage: " + damage);
       Debug.Log("inventoryLimit: " + inventoryLimit);
    		PlayerPrefs.SetInt("playerLevel", level);
    		PlayerPrefs.SetInt("playerExp", exp);
@@ -56,7 +74,6 @@ public static class playerStats
       PlayerPrefs.SetInt("inventoryLimit", inventoryLimit);
       PlayerPrefs.SetString("curPath", curPath);
 
-
     	//currentWeap = loadWeapons(PlayerPrefs.GetString("inventory1"));
     }
     public static void setDataHp(){
@@ -65,7 +82,6 @@ public static class playerStats
       Debug.Log("exp: " + exp);
       Debug.Log("exp req: " + expReq);
       Debug.Log("maxhp: " + maxHp);
-      Debug.Log("damage: " + damage);
       Debug.Log("inventoryLimit: " + inventoryLimit);
       PlayerPrefs.SetInt("playerLevel", level);
       PlayerPrefs.SetInt("playerExp", exp);
@@ -78,7 +94,7 @@ public static class playerStats
       PlayerPrefs.SetString("curPath", curPath);
     }
     public static void loadAllData(){
-   		
+   		//ambDamage = 0;
    		level = PlayerPrefs.GetInt("playerLevel");
    		exp = PlayerPrefs.GetInt("playerExp");
    		expReq = PlayerPrefs.GetInt("playerExpReq");
@@ -96,15 +112,18 @@ public static class playerStats
       Debug.Log("exp req: " + expReq);
       Debug.Log("hp: " + hp);
       Debug.Log("maxhp: " + maxHp);
-      Debug.Log("damage: " + damage);
       Debug.Log("inventoryLimit: " + inventoryLimit);
     	loader loader = new loader();
     	currentWeap = loader.loadWeapon(curPath);
     }
     public static int calculateDamage(){
     	int damage = 0;
-    	damage += currentWeap.baseDamage;
-    	return damage += Random.Range(0, 3);
+      int r = Random.Range(0, 100);
+      if (r <= 10){
+        damage = currentWeap.baseDamage + ambDamage + Random.Range(0, 1);
+        }else damage = currentWeap.baseDamage + Random.Range(0, 1);
+    	
+    	return damage;
     }
     
     public static void checkForDeath(){
@@ -121,22 +140,23 @@ public static class playerStats
 
     		exp -= expReq;
     		level++;
-    		expReq += 1;
-        maxHp++;
+        maxHp += maxHp / 5;
+    		expReq *= 2;
+        
     	}
     }
     public static int generateDamage(){
     	int effectDamage = currentWeap.effectDamage;
     	return effectDamage;
     }
-    public static void find(string path){
+    public static void find(string path, string pP){
         string[] paths = new string[5];
         for (int i = 0; i < inventoryLimit; ++i){
-                paths[i] = PlayerPrefs.GetString("inventory" + i);
+                paths[i] = PlayerPrefs.GetString(pP + i);
                 Debug.Log ("path is " + paths[i]);
                 if (paths[i] == path){
                     Debug.Log("gotcha!");
-                    PlayerPrefs.DeleteKey("inventory" + i);
+                    PlayerPrefs.DeleteKey(pP + i);
                 } 
                 
             }

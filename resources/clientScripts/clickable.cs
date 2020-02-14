@@ -11,12 +11,16 @@ public class clickable : MonoBehaviour
     public int gHp;
     public string weaponPath;
     public string trPath;
+    public string ambPath;
     public Text weaponText;
     public RectTransform weapons;
+    public RectTransform content;
     public Button _button;
+    public Button ambButton;
     public string effect;
     public Weapon weapon;
     public Treasure treas;
+    public Ambition amb;
     void Start()
     {
 
@@ -48,6 +52,9 @@ public class clickable : MonoBehaviour
 				
         		player = GameObject.Find("player");
 				break;
+            case "ambition":
+                player = GameObject.Find("player");
+                break;
 
         }
     	
@@ -121,6 +128,12 @@ public class clickable : MonoBehaviour
     			treasButton.GetComponentInChildren<Text>().text = treas.prefix + " " + treas.name;
     			Destroy (this.gameObject);*/
     			break;
+            case "ambition":
+                Button b = Instantiate(ambButton, content);
+                loader.saveAmbition(amb);
+                ambButton.GetComponent<ambCell>()._amb = amb; 
+                Destroy(gameObject);
+                break;
     	}
     }
     

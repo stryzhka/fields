@@ -59,5 +59,18 @@ public class loader
          
 
     }
+    public static void saveAmbition(Ambition _amb){
+        string path = Application.persistentDataPath + "/dataFiles/ambitions/"  + _amb.name + ".json";
+        _amb.path = path;
+        string save = JsonUtility.ToJson(_amb); 
+        System.IO.File.WriteAllText(path, save);
+    }
+    public Ambition loadAmbition(string path){
+        string jsonObj = "null)";
+        StreamReader reader = new StreamReader(path); 
+        jsonObj = reader.ReadToEnd();
+        Ambition _amb = JsonUtility.FromJson<Ambition>(jsonObj);
+        return _amb;
+    }
     
 }
