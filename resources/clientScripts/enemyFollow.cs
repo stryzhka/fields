@@ -110,28 +110,31 @@ public class enemyFollow : MonoBehaviour
     }
     // Update is called once per frame
     void giveExp(){
-        	if (level > playerStats.level){
-        		print ("monster > you");
-        		int r = level - playerStats.level;
-        		
-        		playerStats.exp += r * 2;
+        if (playerStats.level < 31){
+           if (level > playerStats.level){
+                print ("monster > you");
+                int r = level - playerStats.level;
+                
+                playerStats.exp += r * 2;
 
-        	}
-        	if (level < playerStats.level){
-        		print ("monster < you");
-        		int r = playerStats.level - level;
-        		if (r > 10)
-        		playerStats.exp += 1;
-        		else playerStats.exp += r / level + 2;
-        		
+            }
+            if (level < playerStats.level){
+                print ("monster < you");
+                int r = playerStats.level - level;
+                if (r > 10)
+                playerStats.exp += 1;
+                else playerStats.exp += r / level + 2;
+                
 
-        	}
-        	if (level == playerStats.level){
-        		print ("=");
-        		playerStats.exp += level;
-        		
+            }
+            if (level == playerStats.level){
+                print ("=");
+                playerStats.exp += level;
+                
 
-        	}
+            } 
+        }
+        	
         	
     }
     void calculateDrop(){

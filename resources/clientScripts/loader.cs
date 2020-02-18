@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using System.Text;
 
 public class loader
 {
@@ -55,7 +56,7 @@ public class loader
          _weapon.path = path;
          _weapon.effect = effect;
          string save = JsonUtility.ToJson(_weapon); 
-         System.IO.File.WriteAllText(path, save);
+         System.IO.File.WriteAllBytes(path, Encoding.ASCII.GetBytes(save));
          
 
     }
@@ -63,7 +64,7 @@ public class loader
         string path = Application.persistentDataPath + "/dataFiles/ambitions/"  + _amb.name + ".json";
         _amb.path = path;
         string save = JsonUtility.ToJson(_amb); 
-        System.IO.File.WriteAllText(path, save);
+        System.IO.File.WriteAllBytes(path, Encoding.ASCII.GetBytes(save));
     }
     public Ambition loadAmbition(string path){
         string jsonObj = "null)";

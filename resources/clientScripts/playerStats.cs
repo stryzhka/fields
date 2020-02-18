@@ -19,9 +19,13 @@ public static class playerStats
    public static string curPath;
    public static List<Weapon> weapons;
    public static bool dead;
+   public static bool isDropping;
    public static void setDummyData(){
+    Directory.CreateDirectory(Application.persistentDataPath + "/dataFiles/customWeapons/");
+    Directory.CreateDirectory(Application.persistentDataPath + "/dataFiles/ambitions/");
    	loader loader = new loader();
     cleanInventoryEntries();
+    isDropping = false;
     ambDamage = 0;
    	level = 1;
    	expReq = 100;
@@ -39,6 +43,8 @@ public static class playerStats
     setAllData();
    }
    public static void setTutorialData(){
+    Directory.CreateDirectory(Application.persistentDataPath + "/dataFiles/customWeapons/");
+    Directory.CreateDirectory(Application.persistentDataPath + "/dataFiles/ambitions/");
     loader loader = new loader();
     ambDamage = 0;
     level = 1;
@@ -94,7 +100,7 @@ public static class playerStats
       PlayerPrefs.SetString("curPath", curPath);
     }
     public static void loadAllData(){
-   		//ambDamage = 0;
+   		
    		level = PlayerPrefs.GetInt("playerLevel");
    		exp = PlayerPrefs.GetInt("playerExp");
    		expReq = PlayerPrefs.GetInt("playerExpReq");
@@ -136,13 +142,14 @@ public static class playerStats
     	
     }
     public static void manageExp(){
+
     	while (exp >= expReq){
 
     		exp -= expReq;
     		level++;
         maxHp += maxHp / 5;
     		expReq *= 2;
-        
+        isDropping = true;
     	}
     }
     public static int generateDamage(){

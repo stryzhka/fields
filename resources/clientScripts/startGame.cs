@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class startGame : MonoBehaviour
 {
     // Start is called before the first frame 
+    public string scene;
     void Start()
     {
 		gameObject.GetComponent<Button>().onClick.AddListener(click);        
@@ -18,7 +19,10 @@ public class startGame : MonoBehaviour
         
     }
     void click(){
-    	playerStats.setDummyData();
-    	SceneManager.LoadScene("city1", LoadSceneMode.Single);
+
+            SceneManager.LoadScene(scene, LoadSceneMode.Single);
+            playerStats.setDummyData();
+    	
+    	
     }
 }

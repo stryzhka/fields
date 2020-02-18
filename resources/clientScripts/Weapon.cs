@@ -21,4 +21,7 @@ public class Weapon : Item
     public string info(){
     	return "Name: " + name + " Damage: " + baseDamage + " Effect: " + effect + " EffectDamage: " + effectDamage + " EffectChance: " + effectChance + " Delay: " + delay;
     }
+    public string descInfo(){
+        return "\nDamage: " + baseDamage + " Effect: " + effect + " EffectDamage: " + effectDamage + " EffectChance: " + effectChance + " Delay: " + delay;
+    }
 }

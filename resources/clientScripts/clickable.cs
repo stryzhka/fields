@@ -14,7 +14,7 @@ public class clickable : MonoBehaviour
     public string ambPath;
     public Text weaponText;
     public RectTransform weapons;
-    public RectTransform content;
+    public Transform content;
     public Button _button;
     public Button ambButton;
     public string effect;
