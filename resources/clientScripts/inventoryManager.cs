@@ -14,12 +14,13 @@ public class inventoryManager : MonoBehaviour
     public Text currentWeapText;
     public Button open;
     public GameObject descPanel;
+    public GameObject ambManager;
     void Start()
     {
         isActive = false;
         loadWeapons();
-        open.onClick.AddListener(openInventory);
         descPanel = GameObject.Find("descPanel");
+        ambManager = GameObject.Find("ambManager");
     }
 
     // Update is called once per frame

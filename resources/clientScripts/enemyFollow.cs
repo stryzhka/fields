@@ -7,6 +7,7 @@ using System.IO;
 public class enemyFollow : MonoBehaviour
 {
     public GameObject player;
+    public string type;
     public int level;
     public int minDist;
     public int maxDist;
@@ -37,6 +38,8 @@ public class enemyFollow : MonoBehaviour
     public GameObject zapEffect;
     public GameObject fireEffect;
     public GameObject uiControl;
+    public bool running;
+    public int runTime;
     void Start()
     {
         canHit = true;
@@ -45,6 +48,7 @@ public class enemyFollow : MonoBehaviour
         zapped = false;
         zapSpeed = movingSpeed / 2;
         timer = 5;
+        running = true;
         StartCoroutine(effectsCheck());
     }
 
@@ -65,6 +69,14 @@ public class enemyFollow : MonoBehaviour
 	    	canHitEnemy = true;
     	
     	
+    }
+    public IEnumerator waitRun(){
+        
+            running = false;
+            yield return new WaitForSeconds(waitTime);
+            running = true;
+        
+        
     }
     public IEnumerator rotate(){
         
@@ -108,7 +120,7 @@ public class enemyFollow : MonoBehaviour
 		    	yield return new WaitForSeconds(1f);
 	    	}
     }
-    // Update is called once per frame
+    
     void giveExp(){
         if (playerStats.level < 31){
            if (level > playerStats.level){
@@ -165,6 +177,7 @@ public class enemyFollow : MonoBehaviour
                 print("PATH: " + _box.GetComponent<clickable>().weaponPath);
                 //_box.GetComponent<clickable>().weapons = weapons;
                 player.GetComponent<inventoryManager>().isActive = true;
+                player.GetComponent<inventoryManager>().ambManager.GetComponent<ambitionManager>().isActive = true;
                 break;
 
         }
@@ -204,6 +217,7 @@ public class enemyFollow : MonoBehaviour
         transform.rotation = Quaternion.Euler(0, 0, 0);
     }
     void follow(){
+       
     	if (Vector2.Distance(player.transform.position, transform.position) <= maxDist){
             if (!zapped)
             transform.position = Vector2.MoveTowards(transform.position, player.transform.position, movingSpeed*Time.deltaTime);
@@ -265,6 +279,7 @@ public class enemyFollow : MonoBehaviour
     	}
         deathCheck();
 	}
+   
 	void attack(){
 		if (Vector2.Distance(player.transform.position, transform.position) <= minDist){
 			if (canHitEnemy){

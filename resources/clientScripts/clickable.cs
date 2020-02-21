@@ -27,9 +27,10 @@ public class clickable : MonoBehaviour
         player = GameObject.Find("player");
     	loader loader = new loader();
     	Sprite image = Resources.Load<Sprite>("sprites/money1");
-    	weapons = GameObject.FindWithTag("content").GetComponent<RectTransform>();
+    	
     	switch(gameObject.name){
         	case "money":
+        	
         		image = Resources.Load<Sprite>("sprites/money1");
         		player = GameObject.Find("player");
         		break;
@@ -39,7 +40,7 @@ public class clickable : MonoBehaviour
         		break;
         	case "weapon":
         		player = GameObject.Find("player");
-        		
+        		weapons = GameObject.FindWithTag("content").GetComponent<RectTransform>();
         		
         		weapon = loader.loadWeapon(weaponPath);
 				image = Resources.Load<Sprite>(weapon.imagePath);
@@ -116,6 +117,7 @@ public class clickable : MonoBehaviour
 				    image = Resources.Load<Sprite>(weapon.imagePath);
 				    print (weapon.name);
 				    weaponButton.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().sprite = image;
+                    player.GetComponent<inventoryManager>().saveWeapons();
 				    Destroy(gameObject);
     			}else print ("Too many items in inventory.");
     			break;

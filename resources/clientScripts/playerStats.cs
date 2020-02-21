@@ -20,6 +20,7 @@ public static class playerStats
    public static List<Weapon> weapons;
    public static bool dead;
    public static bool isDropping;
+   public static int speed;
    public static void setDummyData(){
     Directory.CreateDirectory(Application.persistentDataPath + "/dataFiles/customWeapons/");
     Directory.CreateDirectory(Application.persistentDataPath + "/dataFiles/ambitions/");
@@ -34,7 +35,7 @@ public static class playerStats
    	hp = 30;
    	magicEnergy = 30;
    	maxHp = 50;
-   	inventoryLimit = 5;
+   	inventoryLimit = 6;
     curPath = "dataFiles/weapons/knife";
    	weapons = new List<Weapon>();
    	weapons.Add(loader.loadWeapon("dataFiles/weapons/knife"));
@@ -54,7 +55,7 @@ public static class playerStats
     hp = 30;
     magicEnergy = 30;
     maxHp = 50;
-    inventoryLimit = 5;
+    inventoryLimit = 6;
     curPath = "dataFiles/weapons/knife";
     weapons = new List<Weapon>();
     weapons.Add(loader.loadWeapon("dataFiles/weapons/knife"));

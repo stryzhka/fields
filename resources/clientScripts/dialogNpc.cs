@@ -11,10 +11,12 @@ public class dialogNpc : MonoBehaviour
     public bool isTrader;
     public int over;
     public GameObject player;
+    public Button sellB;
     void Start()
     {
         loader loader = new loader();
         __dialog = loader.loadDialog(path);
+        if (isTrader) sellB.onClick.AddListener(sell);
     }
 
     // Update is called once per frame
@@ -22,19 +24,22 @@ public class dialogNpc : MonoBehaviour
     {
         text.text = __dialog.text;
         if (isTrader){
-            if (playerStats.currentWeap.name != "No weapon"){
-                text.text += "Price of your current weapon: " + playerStats.currentWeap.price + "\n" + "To sell press S.";
-                if (Input.GetKeyDown("s")){
+            
+            
+        } 
+    }
+    void sell(){
+        if (playerStats.currentWeap.name != "No weapon"){
+                //text.text += "Price of your current weapon: " + playerStats.currentWeap.price + "\n" + "To sell press S.";
+                
                 loader loader = new loader();
                 playerStats.money += playerStats.currentWeap.price -= over;
                 playerStats.find(playerStats.currentWeap.path, "inventory");
                 player.GetComponent<inventoryManager>().saveWeapons();
                 playerStats.currentWeap = loader.loadWeapon("dataFiles/weapons/noweap");
                 playerStats.curPath = "dataFiles/weapons/noweap";
-                }   
+                
             } 
-            
-        } 
     }
 
 }
