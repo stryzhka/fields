@@ -40,7 +40,7 @@ public class clickable : MonoBehaviour
         		break;
         	case "weapon":
         		player = GameObject.Find("player");
-        		weapons = GameObject.FindWithTag("content").GetComponent<RectTransform>();
+        		//weapons = GameObject.FindWithTag("content").GetComponent<RectTransform>();
         		
         		weapon = loader.loadWeapon(weaponPath);
 				image = Resources.Load<Sprite>(weapon.imagePath);
