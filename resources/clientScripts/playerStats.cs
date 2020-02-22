@@ -120,6 +120,7 @@ public static class playerStats
       Debug.Log("hp: " + hp);
       Debug.Log("maxhp: " + maxHp);
       Debug.Log("inventoryLimit: " + inventoryLimit);
+      Debug.Log("curPath: " + curPath);
     	loader loader = new loader();
     	currentWeap = loader.loadWeapon(curPath);
     }
