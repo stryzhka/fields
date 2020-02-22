@@ -228,30 +228,43 @@ public class enemyFollow : MonoBehaviour
     }
     void OnMouseDown(){
     	//print (canHit);
-
-    	if (Vector2.Distance(transform.position, player.transform.position) <= minDist){
-    		if (canHit){
+        
+    	getDamage("ranged");
+	}
+    public void getDamage(string type){
+        if (playerStats.currentWeap.type != type){
+            if (type == "ranged" && Vector2.Distance(transform.position, player.transform.position) <= minDist){
+            calcDamage();
+            }else if (type == ""){
+                calcDamage();
+                
+            }
+        deathCheck();
+        }
+    }
+    void calcDamage(){
+        if (canHit){
                 player.GetComponent<soundController>().zapSound.Stop();
                 player.GetComponent<soundController>().hit.Play();
-    			if (slagged){
+                if (slagged){
                     if (playerStats.currentWeap.effect == "slag") hp -= playerStats.calculateDamage();
                     else hp -= playerStats.calculateDamage() * 2;
                 }
-    			else{
+                else{
                     int damage = playerStats.calculateDamage();
                     hp -= damage;    
 
                 } 
-    			switch(playerStats.currentWeap.effect){
-    				case "fire": 
-    					int random = Random.Range(0, 100);
-    					if (random <= playerStats.currentWeap.effectChance){
-    						print ("BURNING!");
-    						burning = true;
+                switch(playerStats.currentWeap.effect){
+                    case "fire": 
+                        int random = Random.Range(0, 100);
+                        if (random <= playerStats.currentWeap.effectChance){
+                            print ("BURNING!");
+                            burning = true;
                             GameObject _fireEffect = Instantiate(fireEffect, transform.position, Quaternion.identity);
-    						
-    					}else print ("Random: " + random);
-    					break;
+                            
+                        }else print ("Random: " + random);
+                        break;
                     case "zap":
                         random = Random.Range(0, 100);
                         if (random <= playerStats.currentWeap.effectChance){
@@ -270,16 +283,13 @@ public class enemyFollow : MonoBehaviour
                             
                         }else print ("Random: " + random);
                         break;
-    			}
-    			//print (hp);
-    			StartCoroutine(wait());
-    			canHitEnemy = false;
-    		}
-    		
-    	}
-        deathCheck();
-	}
-   
+                }
+                //print (hp);
+                StartCoroutine(wait());
+                canHitEnemy = false;
+            }
+            
+    }
 	void attack(){
 		if (Vector2.Distance(player.transform.position, transform.position) <= minDist){
 			if (canHitEnemy){
