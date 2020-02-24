@@ -40,6 +40,7 @@ public class enemyFollow : MonoBehaviour
     public GameObject uiControl;
     public bool running;
     public int runTime;
+    public bool spotted;
     void Start()
     {
         canHit = true;
@@ -175,7 +176,7 @@ public class enemyFollow : MonoBehaviour
                     else _box.GetComponent<clickable>().effect = effects[Random.Range(0, 3)];
                     } 
                 print("PATH: " + _box.GetComponent<clickable>().weaponPath);
-                //_box.GetComponent<clickable>().weapons = weapons;
+                _box.GetComponent<clickable>().weapons = weapons;
                 player.GetComponent<inventoryManager>().isActive = true;
                 player.GetComponent<inventoryManager>().ambManager.GetComponent<ambitionManager>().isActive = true;
                 break;
@@ -219,6 +220,8 @@ public class enemyFollow : MonoBehaviour
     void follow(){
        
     	if (Vector2.Distance(player.transform.position, transform.position) <= maxDist){
+            //spotted = false;
+            
             if (!zapped)
             transform.position = Vector2.MoveTowards(transform.position, player.transform.position, movingSpeed*Time.deltaTime);
             else transform.position = Vector2.MoveTowards(transform.position, player.transform.position, zapSpeed*Time.deltaTime);
@@ -235,8 +238,12 @@ public class enemyFollow : MonoBehaviour
         if (playerStats.currentWeap.type != type){
             if (type == "ranged" && Vector2.Distance(transform.position, player.transform.position) <= minDist){
             calcDamage();
+            player.GetComponent<soundController>().hit.Play();
             }else if (type == ""){
                 calcDamage();
+                maxDist = 10;
+                //canHitEnemy = true;
+                
                 
             }
         deathCheck();
@@ -245,7 +252,7 @@ public class enemyFollow : MonoBehaviour
     void calcDamage(){
         if (canHit){
                 player.GetComponent<soundController>().zapSound.Stop();
-                player.GetComponent<soundController>().hit.Play();
+                
                 if (slagged){
                     if (playerStats.currentWeap.effect == "slag") hp -= playerStats.calculateDamage();
                     else hp -= playerStats.calculateDamage() * 2;
@@ -286,12 +293,13 @@ public class enemyFollow : MonoBehaviour
                 }
                 //print (hp);
                 StartCoroutine(wait());
-                canHitEnemy = false;
+                if (playerStats.currentWeap.type != "ranged") canHitEnemy = false;
             }
             
     }
 	void attack(){
 		if (Vector2.Distance(player.transform.position, transform.position) <= minDist){
+            print(canHitEnemy);
 			if (canHitEnemy){
 				print ("attacking!");
                 if (!burning){
