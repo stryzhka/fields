@@ -205,7 +205,7 @@ public class enemyFollow : MonoBehaviour
     void Update()
     {
         follow();
-        attack();
+        
     	
         
         if (burning)
@@ -221,7 +221,7 @@ public class enemyFollow : MonoBehaviour
        
     	if (Vector2.Distance(player.transform.position, transform.position) <= maxDist){
             //spotted = false;
-            
+            attack();
             if (!zapped)
             transform.position = Vector2.MoveTowards(transform.position, player.transform.position, movingSpeed*Time.deltaTime);
             else transform.position = Vector2.MoveTowards(transform.position, player.transform.position, zapSpeed*Time.deltaTime);
