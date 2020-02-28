@@ -5,8 +5,10 @@ using UnityEngine;
 public class playerDataInit : MonoBehaviour
 {
    public bool training;
+   private bool dev;
     void Start()
     {
+        dev = false;
       //playerStats.setDummyData();
       if (training){
         loader loader = new loader();
@@ -17,14 +19,17 @@ public class playerDataInit : MonoBehaviour
       print ("DATA LOADED");
     }
     void Update(){
-    	if (Input.GetKeyDown("o")){
-    		playerStats.setDummyData();
-    		print ("DUMMY DATA SETTED");
-    		} 
-    	if (Input.GetKeyDown("p")){
-    		playerStats.setAllData();
-    		print ("DATA SAVED");
-    		} 
+        if (dev){
+          if (Input.GetKeyDown("o")){
+            playerStats.setDummyData();
+            print ("DUMMY DATA SETTED");
+            } 
+        if (Input.GetKeyDown("p")){
+            playerStats.setAllData();
+            print ("DATA SAVED");
+            }   
+        }
+    	
     	//print (playerStats.curPath);
     }
     void OnApplicationQuit()
