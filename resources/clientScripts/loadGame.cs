@@ -9,7 +9,8 @@ public class loadGame : MonoBehaviour
     // Start is called before the first frame 
     void Start()
     {
-		gameObject.GetComponent<Button>().onClick.AddListener(click);        
+		gameObject.GetComponent<Button>().onClick.AddListener(click);
+        print(PlayerPrefs.GetString("city"));        
     }
 
     // Update is called once per frame
@@ -19,6 +20,6 @@ public class loadGame : MonoBehaviour
     }
     void click(){
     	playerStats.loadAllData();
-    	SceneManager.LoadScene("city1", LoadSceneMode.Single);
+    	SceneManager.LoadScene(PlayerPrefs.GetString("city"), LoadSceneMode.Single);
     }
 }
