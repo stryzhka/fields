@@ -8,11 +8,11 @@ public class playerControl : MonoBehaviour
     public int fastSpeed;
     void Start()
     {
-        #if UNITY_ANDROID
+        /*#if UNITY_ANDROID
         gameObject.GetComponent<playerControl>().enabled = false;
         #else
         gameObject.GetComponent<playerControl>().enabled = true;
-        #endif
+        #endif*/
     }
 
     
