@@ -30,6 +30,7 @@ public class inventoryCell : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
+        descPanel.transform.GetChild(0).GetComponent<Text>().text = _weapon.descInfo() + "\n" + loader.loadDesc(_weapon.descPath) ;
         print ("descript:" + loader.loadDesc(_weapon.descPath));
         print ("here");
         Color tempText = descPanel.transform.GetChild(0).gameObject.GetComponent<Text>().color;
@@ -38,7 +39,7 @@ public class inventoryCell : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         tempText.a = 1.0f;
         descPanel.GetComponent<Image>().color = temp;
         descPanel.transform.GetChild(0).gameObject.GetComponent<Text>().color = tempText;
-        descPanel.transform.GetChild(0).GetComponent<Text>().text = _weapon.descInfo() + "\n" + loader.loadDesc(_weapon.descPath) ;
+        
         
    }
  
@@ -57,6 +58,7 @@ public class inventoryCell : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     	print("Now item " + _weapon.name);
         if (playerStats.currentWeap.name != "No weapon"){
             _put = playerStats.currentWeap;
+            descPanel.transform.GetChild(0).GetComponent<Text>().text = _put.descInfo() + "\n" + loader.loadDesc(_put.descPath) ;
             playerStats.currentWeap = _weapon;
             playerStats.curPath = _weapon.path;
             print ("Curpath: " + playerStats.curPath);
@@ -64,19 +66,21 @@ public class inventoryCell : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             path = _weapon.path;
             print("Now item " + _weapon.name);
             print("at playerstats: " + playerStats.currentWeap.name);
-            gameObject.GetComponentInChildren<Text>().text = "Press to equip " + _weapon.name + "\n" + "Damage: " + _weapon.baseDamage + "\n" + "Effect: " + _weapon.effect + "\n" + "Delay: " + _weapon.delay;
+            
             Sprite image = Resources.Load<Sprite>(_weapon.imagePath);
-            transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().sprite = image;
+            gameObject.GetComponent<Button>().image.sprite = image;
+
         }else {
             playerStats.currentWeap = _weapon;
             path = _weapon.path;
             playerStats.curPath = _weapon.path;
             print ("Curpath: " + playerStats.curPath);
-            Destroy(gameObject);
             playerStats.find(path, "inventory");
+            Destroy(gameObject);
+            
             
         }
-        descPanel.transform.GetChild(0).GetComponent<Text>().text = loader.loadDesc(_weapon.descPath);
+        
     	
     }
 }
