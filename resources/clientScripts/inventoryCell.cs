@@ -17,7 +17,7 @@ public class inventoryCell : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         //_weapon = new Weapon(10, 0.01f, "normal", "Dick");
         descPanel = GameObject.Find("descPanel");
         gameObject.GetComponent<Button>().onClick.AddListener(takeItem);
-        gameObject.GetComponentInChildren<Text>().text = "Press to equip " + _weapon.name + "\n" + "Damage: " + _weapon.baseDamage + "\n" + "Effect: " + _weapon.effect + "\n" + "Delay: " + _weapon.delay;
+        //gameObject.GetComponentInChildren<Text>().text = "Press to equip " + _weapon.name + "\n" + "Damage: " + _weapon.baseDamage + "\n" + "Effect: " + _weapon.effect + "\n" + "Delay: " + _weapon.delay;
         path = _weapon.path;
         
         loader = new loader();
@@ -38,7 +38,7 @@ public class inventoryCell : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         tempText.a = 1.0f;
         descPanel.GetComponent<Image>().color = temp;
         descPanel.transform.GetChild(0).gameObject.GetComponent<Text>().color = tempText;
-        descPanel.transform.GetChild(0).GetComponent<Text>().text = loader.loadDesc(_weapon.descPath) /*+ _weapon.descInfo()*/;
+        descPanel.transform.GetChild(0).GetComponent<Text>().text = _weapon.descInfo() + "\n" + loader.loadDesc(_weapon.descPath) ;
         
    }
  
@@ -68,12 +68,13 @@ public class inventoryCell : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             Sprite image = Resources.Load<Sprite>(_weapon.imagePath);
             transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().sprite = image;
         }else {
-            playerStats.find(path, "inventory");
             playerStats.currentWeap = _weapon;
             path = _weapon.path;
             playerStats.curPath = _weapon.path;
             print ("Curpath: " + playerStats.curPath);
             Destroy(gameObject);
+            playerStats.find(path, "inventory");
+            
         }
         descPanel.transform.GetChild(0).GetComponent<Text>().text = loader.loadDesc(_weapon.descPath);
     	
