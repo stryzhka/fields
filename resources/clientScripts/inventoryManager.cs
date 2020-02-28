@@ -39,7 +39,7 @@ public class inventoryManager : MonoBehaviour
         		isCleaning = true;
         		cleanInventoryEntries();
         } 
-        currentWeapText.text = "Current Weapon: " + playerStats.currentWeap.name + "\n" + "Damage: " + playerStats.currentWeap.baseDamage + "\n" + "Effect: " + playerStats.currentWeap.effect + "\n" + "Delay: " + playerStats.currentWeap.delay + "\n" + "Ambitions damage: " + playerStats.ambDamage;
+        currentWeapText.text = "Current weapon: " + playerStats.currentWeap.name;
         
         
     }
@@ -93,7 +93,8 @@ public class inventoryManager : MonoBehaviour
 	    		weaponButton.GetComponent<inventoryCell>()._weapon = weapon;
 				weaponButton.GetComponent<inventoryCell>().path = path;
 				Sprite image = Resources.Load<Sprite>(weapon.imagePath);
-        		weaponButton.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().sprite = image;
+        		//weaponButton.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().sprite = image;
+                weaponButton.image.sprite = image;
 				}else print ("no key " + "inventory" + i);
     		
     	}
