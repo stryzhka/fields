@@ -12,7 +12,8 @@ public class Weapon : Item
     public int effectDamage;
     public string type;
     public int accuracy;
-    public Weapon(string t, int ac, string n, string p, string ip, int pr, int bD, float d, string s, int ec, int ed, string dP) :base(n, p, pr, ip, dP){
+    public int raysAmount;
+    public Weapon(string t, int ac, string n, string p, string ip, int pr, int bD, float d, string s, int ec, int ed, string dP, int rA) :base(n, p, pr, ip, dP){
 
     	this.baseDamage = bD;
     	this.effect = s;
@@ -21,11 +22,12 @@ public class Weapon : Item
     	this.effectDamage = ed;
         this.type = t;
         this.accuracy = ac;
+        this.raysAmount = rA;
     }
     public string info(){
     	return "Type: " + type + "Accuracy: " + accuracy +"Name: " + name + " Damage: " + baseDamage + " Effect: " + effect + " EffectDamage: " + effectDamage + " EffectChance: " + effectChance + " Delay: " + delay;
     }
     public string descInfo(){
-        return "\nDamage: " + baseDamage + " Effect: " + effect + " EffectDamage: " + effectDamage + " EffectChance: " + effectChance + " Delay: " + delay;
+        return name + "\nDamage: " + baseDamage +  "\nSpeed: " + delay + "\nEffect: " + effect + " Effect damage: " + effectDamage;
     }
 }
