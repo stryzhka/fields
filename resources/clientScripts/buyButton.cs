@@ -10,6 +10,7 @@ public class buyButton : MonoBehaviour
     public string drop;
     public Weapon weapon;
     public GameObject box;
+    public RectTransform weapons;
     public Text text;
     private int random;
     private int eChance;
@@ -38,6 +39,7 @@ public class buyButton : MonoBehaviour
             _box.name = "weapon";
             
             _box.GetComponent<clickable>().weaponPath = drop;
+            _box.GetComponent<clickable>().weapons = weapons;
             string[] effects = new string[3];
             effects[0] = "fire"; 
             effects[1] = "zap";
