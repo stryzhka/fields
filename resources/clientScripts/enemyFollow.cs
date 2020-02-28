@@ -12,8 +12,8 @@ public class enemyFollow : MonoBehaviour
     public int minDist;
     public int maxDist;
     public int movingSpeed;
-    public int hp;
-    public int damage;
+    public float hp;
+    public float damage;
     public Text hpText;
     public Canvas canvas;
     public GameObject dmgText;
@@ -207,13 +207,13 @@ public class enemyFollow : MonoBehaviour
         follow();
         
     	
-        
         if (burning)
         hpText.text = hp + " BRN!";
         else if (zapped)
         hpText.text = hp + " ZAP!";
         else if (slagged)
         hpText.text = hp + " SLG!";
+
         else hpText.text = hp.ToString();
         transform.rotation = Quaternion.Euler(0, 0, 0);
     }
@@ -238,7 +238,7 @@ public class enemyFollow : MonoBehaviour
         if (playerStats.currentWeap.type != type){
             if (type == "ranged" && Vector2.Distance(transform.position, player.transform.position) <= minDist){
             calcDamage();
-            player.GetComponent<soundController>().hit.Play();
+            
             }else if (type == ""){
                 calcDamage();
                 maxDist = 10;
@@ -258,7 +258,7 @@ public class enemyFollow : MonoBehaviour
                     else hp -= playerStats.calculateDamage() * 2;
                 }
                 else{
-                    int damage = playerStats.calculateDamage();
+                    float damage = playerStats.calculateDamage();
                     hp -= damage;    
 
                 } 
@@ -292,6 +292,7 @@ public class enemyFollow : MonoBehaviour
                         break;
                 }
                 //print (hp);
+                player.GetComponent<soundController>().hit.Play();
                 StartCoroutine(wait());
                 if (playerStats.currentWeap.type != "ranged") canHitEnemy = false;
             }
