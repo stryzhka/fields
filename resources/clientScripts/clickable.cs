@@ -116,7 +116,7 @@ public class clickable : MonoBehaviour
 				    weaponButton.GetComponent<inventoryCell>().path = weaponPath;
 				    image = Resources.Load<Sprite>(weapon.imagePath);
 				    print (weapon.name);
-				    weaponButton.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().sprite = image;
+				    weaponButton.image.sprite = image;
                     player.GetComponent<inventoryManager>().saveWeapons();
 				    Destroy(gameObject);
     			}else print ("Too many items in inventory.");
