@@ -6,9 +6,10 @@ using UnityEngine.SceneManagement;
 public class deathCheck : MonoBehaviour
 {
     // Start is called before the first frame update
+    private string load;
     void Start()
     {
-        
+        load = PlayerPrefs.GetString("city");       
     }
 
     // Update is called once per frame
@@ -17,7 +18,7 @@ public class deathCheck : MonoBehaviour
         playerStats.checkForDeath();
         if (playerStats.dead){
             playerStats.setDataHp();
-    		SceneManager.LoadScene("city1", LoadSceneMode.Single);
+    		SceneManager.LoadScene(load, LoadSceneMode.Single);
     		playerStats.dead = false;
         }
     }
