@@ -264,32 +264,37 @@ public class enemyFollow : MonoBehaviour
                 } 
                 switch(playerStats.currentWeap.effect){
                     case "fire": 
-                        int random = Random.Range(0, 100);
+                        float random = Random.Range(0, 100);
+                        random -= playerStats.chance;
                         if (random <= playerStats.currentWeap.effectChance){
-                            print ("BURNING!");
-                            burning = true;
-                            GameObject _fireEffect = Instantiate(fireEffect, transform.position, Quaternion.identity);
+                            effectDamage("fire");
                             
                         }else print ("Random: " + random);
                         break;
                     case "zap":
                         random = Random.Range(0, 100);
+                        random -= playerStats.chance;
                         if (random <= playerStats.currentWeap.effectChance){
-                            print ("ZAPPED!");
-                            zapped = true;
-                            player.GetComponent<soundController>().zapSound.Play();
-                            GameObject _zapEffect = Instantiate(zapEffect, transform.position, Quaternion.identity);
+                            effectDamage("zap");
                             
                         }else print ("Random: " + random);
                         break;
                     case "slag":
                         random = Random.Range(0, 100);
+                        random -= playerStats.chance;
                         if (random <= playerStats.currentWeap.effectChance){
-                            print ("SLAGGED!");
-                            slagged = true;
+                            effectDamage("slag");
                             
                         }else print ("Random: " + random);
                         break;
+                }
+                if (playerStats.currentWeap.effect == "normal"){
+                    float r = Random.Range(0, 100);
+                    print ("Chance: " + playerStats.chance);
+                    print ("random: " + r);
+                    if (r <= playerStats.chance){
+                        effectDamage("fire");
+                    }
                 }
                 //print (hp);
                 player.GetComponent<soundController>().hit.Play();
@@ -299,19 +304,43 @@ public class enemyFollow : MonoBehaviour
             
     }
 	void attack(){
+
+        float temp = damage / 100 * playerStats.resist;
+        float _damage = damage - temp;
+        print("temp: " + temp);
+        print("_damage: " + _damage);
 		if (Vector2.Distance(player.transform.position, transform.position) <= minDist){
             print(canHitEnemy);
 			if (canHitEnemy){
 				print ("attacking!");
                 if (!burning){
-                    playerStats.hp -= damage;
+                    //StartCoroutine(waitEnemy());
+                    
+                    playerStats.hp -= _damage;
                     StartCoroutine(rotate());
                 }
 				
-				else playerStats.hp -= damage / 2;
+				else playerStats.hp -= _damage / 2;
 				StartCoroutine(waitEnemy());
 			}//else print ("waiting");
 			
 		}
 	}
+    void effectDamage(string type){
+        if (type == "fire"){
+             print ("BURNING!");
+             burning = true;
+             GameObject _fireEffect = Instantiate(fireEffect, transform.position, Quaternion.identity);
+        }
+        if (type == "zap"){
+            print ("ZAPPED!");
+            zapped = true;
+            player.GetComponent<soundController>().zapSound.Play();
+            GameObject _zapEffect = Instantiate(zapEffect, transform.position, Quaternion.identity);
+        }
+        if (type == "slag"){
+            print ("SLAGGED!");
+            slagged = true;
+        }
+    }
 }
