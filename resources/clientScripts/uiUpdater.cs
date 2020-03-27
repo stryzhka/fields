@@ -12,17 +12,21 @@ public class uiUpdater : MonoBehaviour
     public Text expText;
     public Text expReqText;
     public bool doRotating;
+    public Text ambDamage;
+    public Text fireChance;
  
     void Start()
     {
         doRotating = false;
+        
     }
 
     // Update is called once per frame
     void Update()
     {	
+       float uiHp = ((int)(playerStats.hp*10)/10);
        moneyText.text = playerStats.money.ToString(); 
-       hpText.text = playerStats.hp.ToString(); 
+       hpText.text = uiHp.ToString(); 
        mPText.text = playerStats.magicEnergy.ToString(); 
        levelText.text = "Level: " +  playerStats.level; 
        expText.text = "XP: " + playerStats.exp.ToString(); 
