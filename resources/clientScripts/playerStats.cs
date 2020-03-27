@@ -23,6 +23,13 @@ public static class playerStats
    public static int speed;
    public static float chance;
    public static float resist;
+   public static string hatPath;
+   public static float regen;
+   public static float critical;
+   public static float bonusEffectDamage;
+   public static float bonusAccuracy;
+   public static float bonusSpeed;
+  
    public static void setDummyData(){
     Directory.CreateDirectory(Application.persistentDataPath + "/dataFiles/customWeapons/");
     Directory.CreateDirectory(Application.persistentDataPath + "/dataFiles/ambitions/");
@@ -45,10 +52,19 @@ public static class playerStats
    	weapons.Add(loader.loadWeapon("dataFiles/weapons/knife"));
    	Debug.Log(weapons[0].name);
    	currentWeap = weapons[0];
+    hatPath = "sprites/hats/empty";
+    PlayerPrefs.DeleteKey("secret1");
     for (int i = 0; i < 30; ++i){
           PlayerPrefs.DeleteKey("ambition" + i);
         }
     setAllData();
+    speed = 3;
+    regen = 0;
+    critical = 0;
+    bonusEffectDamage = 0;
+    bonusAccuracy = 0;
+    bonusSpeed = 0;
+    PlayerPrefs.DeleteKey("secret2");
    }
    public static void setTutorialData(){
     Directory.CreateDirectory(Application.persistentDataPath + "/dataFiles/customWeapons/");
@@ -66,6 +82,8 @@ public static class playerStats
     inventoryLimit = 14;
     resist = 0;
     curPath = "dataFiles/weapons/knife";
+    hatPath = "sprites/hats/empty";
+    PlayerPrefs.DeleteKey("secret1");
     weapons = new List<Weapon>();
     weapons.Add(loader.loadWeapon("dataFiles/weapons/knife"));
     Debug.Log(weapons[0].name);
@@ -73,7 +91,12 @@ public static class playerStats
     for (int i = 0; i < 30; ++i){
           PlayerPrefs.DeleteKey("ambition" + i);
         }
-    
+    speed = 3;
+    regen = 0;
+    critical = 0;
+    bonusEffectDamage = 0;
+    bonusAccuracy = 0;
+    bonusSpeed = 0;
    }
    public static void setAllData(){
    		Debug.Log("Money: " + money);
@@ -90,11 +113,17 @@ public static class playerStats
     	PlayerPrefs.SetFloat("playerHp", hp);
     	PlayerPrefs.SetFloat("maxPlayerHp", maxHp);
     	PlayerPrefs.SetFloat("curDamage", damage);
-      PlayerPrefs.SetInt("inventoryLimit", inventoryLimit);
+      //PlayerPrefs.SetInt("inventoryLimit", inventoryLimit);
       PlayerPrefs.SetString("curPath", curPath);
+      PlayerPrefs.SetString("hatPath", hatPath);
       chance = 0;
       resist = 0;
-
+      speed = 3;
+      regen = 0;
+      critical = 0;
+      bonusEffectDamage = 0;
+      bonusAccuracy = 0;
+      bonusSpeed = 0;
     	//currentWeap = loadWeapons(PlayerPrefs.GetString("inventory1"));
     }
     public static void setDataHp(){
@@ -111,10 +140,17 @@ public static class playerStats
       PlayerPrefs.SetFloat("playerHp", maxHp);
       PlayerPrefs.SetFloat("maxPlayerHp", maxHp);
       PlayerPrefs.SetFloat("curDamage", damage);
-      PlayerPrefs.SetInt("inventoryLimit", inventoryLimit);
+      //PlayerPrefs.SetInt("inventoryLimit", inventoryLimit);
       PlayerPrefs.SetString("curPath", curPath);
+      PlayerPrefs.SetString("hatPath", hatPath);
       chance = 0;
       resist = 0;
+      speed = 3;
+      regen = 0;
+      critical = 0;
+      bonusEffectDamage = 0;
+      bonusAccuracy = 0;
+      bonusSpeed = 0;
     }
     public static void loadAllData(){
    		
@@ -126,8 +162,9 @@ public static class playerStats
     	maxHp = PlayerPrefs.GetFloat("maxPlayerHp");
     	money = PlayerPrefs.GetInt("playerMoney");
     	damage = PlayerPrefs.GetFloat("curDamage");
-      inventoryLimit = PlayerPrefs.GetInt("inventoryLimit");
+      inventoryLimit = 14;
       curPath = PlayerPrefs.GetString("curPath");
+      hatPath = PlayerPrefs.GetString("hatPath");
       Debug.Log("info loaded");
       Debug.Log("Money: " + money);
       Debug.Log("level:" + level);
@@ -141,6 +178,12 @@ public static class playerStats
     	currentWeap = loader.loadWeapon(curPath);
       chance = 0;
       resist = 0;
+      speed = 3;
+      regen = 0;
+      critical = 0;
+      bonusEffectDamage = 0;
+      bonusAccuracy = 0;
+      bonusSpeed = 0;
     }
     public static float calculateDamage(){
     	float damage = 0;
@@ -179,12 +222,7 @@ public static class playerStats
     public static void find(string path, string pP){
         string[] paths = new string[inventoryLimit];
         for (int i = 0; i < inventoryLimit; ++i){
-                paths[i] = PlayerPrefs.GetString(pP + i);
-                Debug.Log ("path is " + paths[i]);
-                if (paths[i] == path){
-                    Debug.Log("gotcha!");
-                    PlayerPrefs.DeleteKey(pP + i);
-                } 
+                PlayerPrefs.DeleteKey(pP + i.ToString());
                 
             }
     }
