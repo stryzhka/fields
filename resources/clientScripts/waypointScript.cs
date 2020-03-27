@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class waypointScript : MonoBehaviour
 {
@@ -9,6 +10,11 @@ public class waypointScript : MonoBehaviour
     public float x, y, z;
     public bool loadPos;
     public bool set;
+    public bool secret;
+    public string secretName;
+    public Text tipsText;
+    public GameObject tipsPanel;
+    public Dropdown skillsDropdown;
     void Start()
     {
         if (PlayerPrefs.GetInt("load") == 1 && set)
@@ -16,11 +22,50 @@ public class waypointScript : MonoBehaviour
         else print ("аутизм");
         print(PlayerPrefs.GetString("currentWay"));
         print(loadPos);
+        if (secret) print ("secret: " + PlayerPrefs.GetInt(secretName));
+        tipsText = GameObject.Find("tipsText").GetComponent<Text>();
+        tipsPanel = GameObject.Find("tipsPanel");
+        Color tmp = tipsPanel.GetComponent<Image>().color;
+        tmp.a = 0;
+        tipsPanel.GetComponent<Image>().color = tmp;
+        skillsDropdown = GameObject.Find("skillsDropdown").GetComponent<Dropdown>();
     }
 
+
     void OnCollisionEnter2D(Collision2D col){
+        loader loader = new loader();
+        resStats.saveResourcesData();
         if (col.gameObject.tag == "Player"){
-        	playerStats.setAllData();
+            if (secret){
+              if (PlayerPrefs.GetInt(secretName) == 0){
+                if (secretName == "secret2"){
+                    if (playerStats.hatPath == "sprites/hats/mask"){
+                        PlayerPrefs.SetInt(secretName, 1);
+                        print ("secret: " + PlayerPrefs.GetInt(secretName));
+                        Color tmp = tipsPanel.GetComponent<Image>().color;
+                        tmp.a = 1;
+                        tipsPanel.GetComponent<Image>().color = tmp;
+                        tipsText.text = loader.loadList("dataFiles/weapons/tips");
+                        PlayerPrefs.SetInt("dropdown", skillsDropdown.value);
+                        SceneManager.LoadScene(scene, LoadSceneMode.Single);
+                    }
+                }else{
+                    PlayerPrefs.SetInt(secretName, 1);
+                    print ("secret: " + PlayerPrefs.GetInt(secretName));
+                    Color tmp = tipsPanel.GetComponent<Image>().color;
+                        tmp.a = 1;
+                        tipsPanel.GetComponent<Image>().color = tmp;
+                    tipsText.text = loader.loadList("dataFiles/weapons/tips");
+                    PlayerPrefs.SetInt("dropdown", skillsDropdown.value);
+                    SceneManager.LoadScene(scene, LoadSceneMode.Single);
+                }
+                    
+              }else{
+                print ("NO SECRET");
+              }
+                
+            }else{
+                playerStats.setAllData();
             PlayerPrefs.SetString("currentWay", gameObject.name);
             PlayerPrefs.SetFloat("x", x);
             PlayerPrefs.SetFloat("y", x);
@@ -35,8 +80,21 @@ public class waypointScript : MonoBehaviour
                 print ("ok");
                 print (PlayerPrefs.GetString("city"));
             }
+            if (scene == "city3"){
+                PlayerPrefs.SetString("city", "city3");
+                print ("ok");
+                print (PlayerPrefs.GetString("city"));
+            }
+                Color tmp = tipsPanel.GetComponent<Image>().color;
+                        tmp.a = 1;
+                        tipsPanel.GetComponent<Image>().color = tmp;
+                tipsText.text = loader.loadList("dataFiles/weapons/tips");
+                PlayerPrefs.SetInt("dropdown", skillsDropdown.value);
+                SceneManager.LoadScene(scene, LoadSceneMode.Single);
+            }
+        	
             
-        	SceneManager.LoadScene(scene, LoadSceneMode.Single);
+        	
             
             
         }
