@@ -46,6 +46,7 @@ public class enemyFollow : MonoBehaviour
     public AudioClip minionSl;
     public float radius;
     public bool stop;
+    public List<GameObject> guts;
     void Start()
     {
         canHit = true;
@@ -239,7 +240,12 @@ public class enemyFollow : MonoBehaviour
             giveExp();
             playerStats.money += level * 10;
             playerStats.manageExp();
+            foreach (GameObject g in guts){
+                GameObject gut = Instantiate(g, transform.position, Quaternion.identity);
+                gut.transform.Rotate(new Vector3(0,0,Random.Range(-360,360)));
+                }  
         	Destroy(gameObject);
+
         	
         }
     }
