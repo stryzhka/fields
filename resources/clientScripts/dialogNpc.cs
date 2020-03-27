@@ -33,7 +33,7 @@ public class dialogNpc : MonoBehaviour
                 //text.text += "Price of your current weapon: " + playerStats.currentWeap.price + "\n" + "To sell press S.";
                 
                 loader loader = new loader();
-                playerStats.money += playerStats.currentWeap.price -= over;
+                playerStats.money += playerStats.currentWeap.price;
                 playerStats.find(playerStats.currentWeap.path, "inventory");
                 player.GetComponent<inventoryManager>().saveWeapons();
                 playerStats.currentWeap = loader.loadWeapon("dataFiles/weapons/noweap");

@@ -17,9 +17,15 @@ public class deathCheck : MonoBehaviour
     {
         playerStats.checkForDeath();
         if (playerStats.dead){
-            playerStats.setDataHp();
-    		SceneManager.LoadScene(load, LoadSceneMode.Single);
-    		playerStats.dead = false;
+        	if (SceneManager.GetActiveScene().name == "training"){
+        		playerStats.setTutorialData();
+        		SceneManager.LoadScene("start", LoadSceneMode.Single);
+        	}else{
+        		playerStats.setDataHp();
+    			SceneManager.LoadScene(load, LoadSceneMode.Single);
+    			playerStats.dead = false;
+        	}
+            
         }
     }
 }

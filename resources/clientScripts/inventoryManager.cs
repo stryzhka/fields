@@ -15,12 +15,16 @@ public class inventoryManager : MonoBehaviour
     public Button open;
     public GameObject descPanel;
     public GameObject ambManager;
+    public GameObject skillsDropdown, skillLabel;
     void Start()
     {
         isActive = false;
         loadWeapons();
+        playerStats.inventoryLimit = 14;
         descPanel = GameObject.Find("descPanel");
         ambManager = GameObject.Find("ambManager");
+        skillsDropdown = GameObject.Find("skillsDropdown");
+        skillLabel = GameObject.Find("skillLabel");
     }
 
     // Update is called once per frame
@@ -28,6 +32,12 @@ public class inventoryManager : MonoBehaviour
     {
         if (isActive){
         	space.gameObject.SetActive(true);
+            Color tempTextLabel = skillLabel.GetComponent<Text>().color;
+            tempTextLabel.a = 1.0f;
+            skillLabel.GetComponent<Text>().color = tempTextLabel;
+            Color dropdownC = skillsDropdown.GetComponent<Image>().color;
+            dropdownC.a = 1f;
+            skillsDropdown.GetComponent<Image>().color = dropdownC;
         }else{
         	space.gameObject.SetActive(false);
         }
@@ -52,6 +62,12 @@ public class inventoryManager : MonoBehaviour
             descPanel.transform.GetChild(0).gameObject.GetComponent<Text>().color = tempText;
             descPanel.GetComponent<Image>().color = temp;
             isActive = false;
+            Color tempTextLabel = skillLabel.GetComponent<Text>().color;
+            tempTextLabel.a = 0.0f;
+            skillLabel.GetComponent<Text>().color = tempTextLabel;
+            Color dropdownC = skillsDropdown.GetComponent<Image>().color;
+            dropdownC.a = 0f;
+            skillsDropdown.GetComponent<Image>().color = dropdownC;
             } 
         else isActive = true;
         //print ("eheg");
@@ -74,6 +90,7 @@ public class inventoryManager : MonoBehaviour
     	}
     }
     void loadWeapons(){
+        print ("now loading");
     	/*string path = "";
     	int amount = 0;
     	foreach (Transform child in Content){
@@ -81,20 +98,25 @@ public class inventoryManager : MonoBehaviour
     	}
     	*/
     	string path = "";
+        print ("inventoryLimit: " + playerStats.inventoryLimit);
+        playerStats.inventoryLimit = 14;
+        print ("inventoryLimit: " + playerStats.inventoryLimit);
     	for(int i = 0; i < playerStats.inventoryLimit; ++i){
     		path = PlayerPrefs.GetString("inventory" + i);
-    		//print (path);
+            print("Cycle" + i);
+    		print ("PP PATH: " + path);
     		if (PlayerPrefs.HasKey("inventory" + i)){
     			//print (path);
     			loader loader = new loader();
     			Weapon weapon = loader.loadWeapon(path);
-    			weapon.info();
+    			//weapon.info();
 	    		Button weaponButton = Instantiate(_button, Content);
 	    		weaponButton.GetComponent<inventoryCell>()._weapon = weapon;
 				weaponButton.GetComponent<inventoryCell>().path = path;
 				Sprite image = Resources.Load<Sprite>(weapon.imagePath);
         		//weaponButton.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().sprite = image;
                 weaponButton.image.sprite = image;
+                
 				}else print ("no key " + "inventory" + i);
     		
     	}
@@ -106,5 +128,8 @@ public class inventoryManager : MonoBehaviour
     		}
     	}
     }
-    
+    void OnApplicationQuit()
+    {
+        saveWeapons();
+    }
 }

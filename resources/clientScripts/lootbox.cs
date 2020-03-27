@@ -8,6 +8,9 @@ public class lootbox : MonoBehaviour
     public GameObject box;
     public GameObject player;
     public RectTransform weapons;
+    public bool debug;
+    public Sprite opened;
+    public bool isOpened;
     void Start()
     {
         
@@ -16,18 +19,29 @@ public class lootbox : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (debug)
         if (Input.GetKey("s")){
-            loader loader = new loader();
+            drop();
+        }
+    }
+
+    void drop(){
+        loader loader = new loader();
             string weaponPath = loader.loadList(listPath);
             GameObject _box = Instantiate(box, transform.position, Quaternion.identity);
             _box.GetComponent<clickable>().weaponPath = weaponPath;
             _box.name = "weapon";
             _box.GetComponent<clickable>().weapons = weapons;
-            player.GetComponent<inventoryManager>().isActive = true;
-        }
+            GetComponent<SpriteRenderer>().sprite = opened;
+            isOpened = true;
+            //player.GetComponent<inventoryManager>().isActive = true;
     }
     void OnMouseDown(){
     		
-            //Destroy (gameObject);
+            if (Vector2.Distance(player.transform.position, transform.position) <= 3){
+                if (!isOpened)
+                drop();
+                //Destroy(gameObject);
+            }
     }
 }

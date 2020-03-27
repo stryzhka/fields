@@ -41,6 +41,11 @@ public class enemyFollow : MonoBehaviour
     public bool running;
     public int runTime;
     public bool spotted;
+    public bool minion;
+    public AudioSource minionS;
+    public AudioClip minionSl;
+    public float radius;
+    public bool stop;
     void Start()
     {
         canHit = true;
@@ -50,15 +55,17 @@ public class enemyFollow : MonoBehaviour
         zapSpeed = movingSpeed / 2;
         timer = 5;
         running = true;
+            player = GameObject.Find("player");
         StartCoroutine(effectsCheck());
     }
 
     public IEnumerator wait(){
     	
 	    	canHit = false;
-	    	
-	    	
+	    	if (playerStats.currentWeap.type != "ranged")
+	    	player.GetComponent<soundController>().hit.Play();
 	    	yield return new WaitForSeconds(playerStats.currentWeap.delay);
+
 	    	canHit = true;
     	
     	
@@ -81,9 +88,9 @@ public class enemyFollow : MonoBehaviour
     }
     public IEnumerator rotate(){
         
-            uiControl.GetComponent<uiUpdater>().doRotating = true;
+            player.GetComponent<uiUpdater>().doRotating = true;
             yield return new WaitForSeconds(1f);
-            uiControl.GetComponent<uiUpdater>().doRotating = false;
+            player.GetComponent<uiUpdater>().doRotating = false;
         
         
     }
@@ -91,7 +98,7 @@ public class enemyFollow : MonoBehaviour
     	while (timer > 0){
 				if (burning){
 					print ("ouch! burned");
-		    		hp -= playerStats.currentWeap.effectDamage;
+		    		hp -= playerStats.currentWeap.effectDamage + playerStats.bonusEffectDamage;
 		    		timer--;
                     deathCheck();
 
@@ -99,6 +106,7 @@ public class enemyFollow : MonoBehaviour
 		    	}
                 if (zapped){
                     print ("ouch! zapped");
+                    hp -= playerStats.bonusEffectDamage;
                     //hp -= playerStats.currentWeap.effectDamage;
                     timer--;
                     deathCheck();
@@ -107,7 +115,7 @@ public class enemyFollow : MonoBehaviour
                 }
                 if (slagged){
                     print ("not ouch! slagged but living!");
-                    //hp -= playerStats.currentWeap.effectDamage;
+                    hp -= playerStats.bonusEffectDamage;;
                     timer--;
                     deathCheck();
                     
@@ -121,22 +129,55 @@ public class enemyFollow : MonoBehaviour
 		    	yield return new WaitForSeconds(1f);
 	    	}
     }
+    public IEnumerator waitPlay(float time){
+
+        
+        yield return new WaitForSeconds(time);
+    }
+
+    public IEnumerator waitExplode(float time){
+
+        stop = true;
+        yield return new WaitForSeconds(1f);
+                GameObject _fireEffect = Instantiate(fireEffect, transform.position, Quaternion.identity);
+                print ("EXPLODINGS");
+                Destroy(gameObject);
+                Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, radius);
+                int i = 0;
+                while (i < hitColliders.Length)
+                {
+                    print (hitColliders[i]);
+                    if (hitColliders[i].gameObject.tag == "Player")
+                    playerStats.hp -= damage;
+                    if (hitColliders[i].gameObject.tag == "enemy")
+                    hitColliders[i].GetComponent<enemyFollow>().hp -= damage;
+                    i++;
+                }
+    }
     
     void giveExp(){
         if (playerStats.level < 31){
            if (level > playerStats.level){
                 print ("monster > you");
                 int r = level - playerStats.level;
-                
-                playerStats.exp += r * 2;
+                int r2 = r * 2;
+                playerStats.exp += level - 1 + r2 * 2;
 
             }
             if (level < playerStats.level){
                 print ("monster < you");
-                int r = playerStats.level - level;
-                if (r > 10)
+                float r = playerStats.level - level;
+                if (r > 3f)
                 playerStats.exp += 1;
-                else playerStats.exp += r / level + 2;
+                else if (r == 1){
+                    playerStats.exp += level;
+                }
+                else{
+                    if ((int) Mathf.Round(r / level) <= 0)
+                    playerStats.exp += 1;
+                    else playerStats.exp += (int) Mathf.Round(r / level);
+                    } 
+                
                 
 
             }
@@ -189,11 +230,11 @@ public class enemyFollow : MonoBehaviour
     	int random = Random.Range(0, 100);
         print ("RANDOM: " + random);
     	if (random <= uChance){
-                calculateDrop();
+                if (!minion) calculateDrop();
     		}else print("nothing");
     }
     void deathCheck(){
-    	if (hp <= 0){
+    	if (hp <= 1){
             dropItem();
             giveExp();
             playerStats.money += level * 10;
@@ -203,22 +244,28 @@ public class enemyFollow : MonoBehaviour
         }
     }
     void Update()
-    {
+    {   if (!stop)
         follow();
-        
-    	
+        float uiHp = ((int)(hp*10)/10);
+    	if (uiHp == 0) uiHp = 1;
         if (burning)
-        hpText.text = hp + " BRN!";
+        hpText.text = uiHp + " burned!";
         else if (zapped)
-        hpText.text = hp + " ZAP!";
+        hpText.text = uiHp + " zapped!";
         else if (slagged)
-        hpText.text = hp + " SLG!";
+        hpText.text = uiHp + " slagged!";
 
-        else hpText.text = hp.ToString();
+        else hpText.text = uiHp.ToString();
         transform.rotation = Quaternion.Euler(0, 0, 0);
     }
     void follow(){
-       
+        if (minion){
+            attack();
+            if (!zapped)
+            transform.position = Vector2.MoveTowards(transform.position, player.transform.position, movingSpeed*Time.deltaTime);
+            else transform.position = Vector2.MoveTowards(transform.position, player.transform.position, zapSpeed*Time.deltaTime);
+        }
+        
     	if (Vector2.Distance(player.transform.position, transform.position) <= maxDist){
             //spotted = false;
             attack();
@@ -233,14 +280,16 @@ public class enemyFollow : MonoBehaviour
     	//print (canHit);
         
     	getDamage("ranged");
+        
 	}
     public void getDamage(string type){
         if (playerStats.currentWeap.type != type){
             if (type == "ranged" && Vector2.Distance(transform.position, player.transform.position) <= minDist){
-            calcDamage();
+            calcDamage("ranged");
+            StartCoroutine(waitPlay(playerStats.currentWeap.delay));
             
             }else if (type == ""){
-                calcDamage();
+                calcDamage("");
                 maxDist = 10;
                 //canHitEnemy = true;
                 
@@ -249,16 +298,23 @@ public class enemyFollow : MonoBehaviour
         deathCheck();
         }
     }
-    void calcDamage(){
+    void calcDamage(string t){
+        int crit = Random.Range(0, 100);
         if (canHit){
                 player.GetComponent<soundController>().zapSound.Stop();
-                
+                float damage = playerStats.calculateDamage();
                 if (slagged){
-                    if (playerStats.currentWeap.effect == "slag") hp -= playerStats.calculateDamage();
-                    else hp -= playerStats.calculateDamage() * 2;
+                    if (playerStats.currentWeap.effect == "slag") hp -= damage;
+                    else hp -= damage * 2;
+
                 }
                 else{
-                    float damage = playerStats.calculateDamage();
+                    print ("critical: " + playerStats.critical);
+                    if (crit <= playerStats.critical){
+                    print ("CRITICAL HIT!");
+                    hp -= damage * 2.5f;
+                    }else
+                    
                     hp -= damage;    
 
                 } 
@@ -289,38 +345,47 @@ public class enemyFollow : MonoBehaviour
                         break;
                 }
                 if (playerStats.currentWeap.effect == "normal"){
-                    float r = Random.Range(0, 100);
+                    float r = Random.Range(1, 100);
                     print ("Chance: " + playerStats.chance);
                     print ("random: " + r);
                     if (r <= playerStats.chance){
+                        
                         effectDamage("fire");
                     }
                 }
                 //print (hp);
-                player.GetComponent<soundController>().hit.Play();
+                if (t == "ranged")
                 StartCoroutine(wait());
+
                 if (playerStats.currentWeap.type != "ranged") canHitEnemy = false;
             }
             
     }
 	void attack(){
-
+        int r = Random.Range(0, 100);
         float temp = damage / 100 * playerStats.resist;
         float _damage = damage - temp;
         print("temp: " + temp);
         print("_damage: " + _damage);
 		if (Vector2.Distance(player.transform.position, transform.position) <= minDist){
             print(canHitEnemy);
+            if (minion){
+                StartCoroutine(waitExplode(1f));
+            }
 			if (canHitEnemy){
-				print ("attacking!");
-                if (!burning){
-                    //StartCoroutine(waitEnemy());
-                    
-                    playerStats.hp -= _damage;
-                    StartCoroutine(rotate());
-                }
+                
+                if (r <= 55){
+                    print ("attacking!");
+                    if (!burning){
+                        //StartCoroutine(waitEnemy());
+                        
+                        playerStats.hp -= _damage;
+                        StartCoroutine(rotate());
+                    }
+                
+                else playerStats.hp -= _damage / 2;
+                }else print ("not attacking(");
 				
-				else playerStats.hp -= _damage / 2;
 				StartCoroutine(waitEnemy());
 			}//else print ("waiting");
 			

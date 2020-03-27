@@ -10,6 +10,7 @@ public class clickable : MonoBehaviour
     public int gMoney;
     public int gHp;
     public string weaponPath;
+    public string hatPath;
     public string trPath;
     public string ambPath;
     public Text weaponText;
@@ -21,27 +22,29 @@ public class clickable : MonoBehaviour
     public Weapon weapon;
     public Treasure treas;
     public Ambition amb;
+    public Sprite image;
     void Start()
     {
 
         player = GameObject.Find("player");
     	loader loader = new loader();
-    	Sprite image = Resources.Load<Sprite>("sprites/money1");
+
+    	//Sprite image = Resources.Load<Sprite>("sprites/hats/empty");
     	
     	switch(gameObject.name){
         	case "money":
         	
-        		image = Resources.Load<Sprite>("sprites/money1");
+        		//image = Resources.Load<Sprite>("sprites/money1");
         		player = GameObject.Find("player");
         		break;
         	case "hp":
-        		image = Resources.Load<Sprite>("sprites/box1");
+        		//image = Resources.Load<Sprite>("sprites/box1");
         		player = GameObject.Find("player");
         		break;
         	case "weapon":
         		player = GameObject.Find("player");
         		//weapons = GameObject.FindWithTag("content").GetComponent<RectTransform>();
-        		
+        		if (gameObject.tag != "custom")
         		weapon = loader.loadWeapon(weaponPath);
 				image = Resources.Load<Sprite>(weapon.imagePath);
 				
@@ -56,8 +59,14 @@ public class clickable : MonoBehaviour
             case "ambition":
                 player = GameObject.Find("player");
                 break;
-
+            case "hat":
+                Sprite img = Resources.Load<Sprite>(hatPath);
+                
+                print("hatPath: " + hatPath);
+                image = img;
+                break;
         }
+        //image.size = 1;
     	
     	
         
@@ -66,7 +75,19 @@ public class clickable : MonoBehaviour
     }
 
     // Update is called once per frame
-    
+    void modifiers(){
+        List<string> names = new List<string>();
+        names.Add("Необычный ");
+        names.Add("Странный ");
+        names.Add("Переделанный ");
+        names.Add("Улучшенный ");
+        float r = Random.Range(0f, 1f);
+        if (r <= 0.08f){
+            gameObject.tag = "custom";
+            weapon.name = names[Random.Range(0, names.Count)] + weapon.name;
+            weapon.baseDamage += Random.Range(1, playerStats.level - 1);
+        }   
+    }
     void OnMouseDown(){
     if (Vector2.Distance(player.transform.position, transform.position) <= 3){
     	Sprite image = Resources.Load<Sprite>("");
@@ -77,13 +98,14 @@ public class clickable : MonoBehaviour
     			break;
     		case "hp":
 				Destroy (this.gameObject);
-				playerStats.hp += gHp;
-				if (playerStats.hp > playerStats.maxHp){
-					while (playerStats.hp != playerStats.maxHp)  playerStats.hp--;
-				}
+                if (playerStats.hp + gHp > playerStats.maxHp){
+                    playerStats.hp += playerStats.maxHp - playerStats.hp;
+                }
+				else playerStats.hp += gHp;
 				
     			break;
     		case "weapon":
+                modifiers();
     			loader loader = new loader();
     			if (weapons.childCount < playerStats.inventoryLimit){
 				    Button weaponButton = Instantiate(_button, weapons);
@@ -111,12 +133,18 @@ public class clickable : MonoBehaviour
                             break;
                         
                     }
+                    if (gameObject.tag == "custom"){
+                        loader.saveCraft(weapon);
+                        print("wPath: " + weapon.path);
+
+                    } 
                     
 				    weaponButton.GetComponent<inventoryCell>()._weapon = weapon;
-				    weaponButton.GetComponent<inventoryCell>().path = weaponPath;
+				    weaponButton.GetComponent<inventoryCell>().path = weapon.path;
 				    image = Resources.Load<Sprite>(weapon.imagePath);
 				    print (weapon.name);
 				    weaponButton.image.sprite = image;
+                    
                     player.GetComponent<inventoryManager>().saveWeapons();
 				    Destroy(gameObject);
     			}else print ("Too many items in inventory.");
@@ -136,7 +164,18 @@ public class clickable : MonoBehaviour
                 ambButton.GetComponent<ambCell>()._amb = amb; 
                 Destroy(gameObject);
                 break;
+
+            case "hat":
+                print(player.transform.GetChild(1).GetChild(0));
+                playerStats.hatPath = hatPath;
+                Sprite img = Resources.Load<Sprite>(hatPath);
+                player.transform.GetChild(1).GetChild(0).GetComponent<SpriteRenderer>().sprite = img;
+                Destroy(gameObject);
+                
+                break;
     	}
+
+    
     }
     
   }   

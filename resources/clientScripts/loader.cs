@@ -52,16 +52,25 @@ public class loader
     	return _dialog;
     }
     public static void saveWeapon(Weapon _weapon, string effect){
-         string path = Application.persistentDataPath + "/dataFiles/customWeapons/"  + _weapon.name + ".json";
+         string path = Application.persistentDataPath + "/dataFiles/customWeapons/"  + _weapon.name  + ".json";
          _weapon.path = path;
          _weapon.effect = effect;
+
          string save = JsonUtility.ToJson(_weapon); 
-         System.IO.File.WriteAllBytes(path, Encoding.ASCII.GetBytes(save));
+         System.IO.File.WriteAllBytes(path, Encoding.UTF8.GetBytes(save));
          
 
     }
+    public static void saveCraft(Weapon _weapon){
+        string path = Application.persistentDataPath + "/dataFiles/customWeapons/"  + _weapon.name + Time.deltaTime + Random.Range(0,10) + ".json";
+         _weapon.path = path;
+         Debug.Log("_weapon.path " + _weapon.path);
+
+         string save = JsonUtility.ToJson(_weapon); 
+         System.IO.File.WriteAllBytes(path, Encoding.Default.GetBytes(save));
+    }
     public static void saveAmbition(Ambition _amb){
-        string path = Application.persistentDataPath + "/dataFiles/ambitions/"  + _amb.name + ".json";
+        string path = Application.persistentDataPath + "/dataFiles/ambitions/"  + _amb.name + Time.deltaTime + Random.Range(0,10) + ".json";
         _amb.path = path;
         string save = JsonUtility.ToJson(_amb); 
         System.IO.File.WriteAllBytes(path, Encoding.ASCII.GetBytes(save));

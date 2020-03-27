@@ -6,13 +6,14 @@ public class playerControl : MonoBehaviour
 {
     public int movingSpeed;
     public int fastSpeed;
+    bool isAndr;
     void Start()
     {
-        /*#if UNITY_ANDROID
-        gameObject.GetComponent<playerControl>().enabled = false;
+        #if UNITY_ANDROID
+        isAndr = true;
         #else
-        gameObject.GetComponent<playerControl>().enabled = true;
-        #endif*/
+        isAndr = false;
+        #endif
     }
 
     
@@ -21,10 +22,15 @@ public class playerControl : MonoBehaviour
     	if (Input.GetMouseButton(0)){
             var target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             if (Input.GetKey("2")){
+                if (isAndr)
+                transform.position = Vector2.MoveTowards(transform.position, target, playerStats.speed*Time.deltaTime); 
+                else 
                 transform.position = Vector2.MoveTowards(transform.position, target, fastSpeed*Time.deltaTime); 
             }else {
-                
-                transform.position = Vector2.MoveTowards(transform.position, target, movingSpeed*Time.deltaTime);   
+                if (isAndr)
+                transform.position = Vector2.MoveTowards(transform.position, target, playerStats.speed*Time.deltaTime);   
+                else
+                transform.position = Vector2.MoveTowards(transform.position, target, movingSpeed*Time.deltaTime); 
             }
     		
     	}

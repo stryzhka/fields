@@ -37,8 +37,25 @@ public class inventoryCell : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         Color temp = descPanel.GetComponent<Image>().color;
         temp.a = 1.0f;
         tempText.a = 1.0f;
+        if (_weapon.color != ""){
+            print (_weapon.color);
+            switch (_weapon.color){
+                case "green":
+                    tempText = Color.green;
+                    break;
+
+                case "blue":
+                    tempText = Color.blue;
+                    break;
+
+                case "orange":
+                    tempText = Color.yellow;
+                    break;
+            }
+        }else tempText = Color.white;
         descPanel.GetComponent<Image>().color = temp;
         descPanel.transform.GetChild(0).gameObject.GetComponent<Text>().color = tempText;
+        
         
         
    }
@@ -48,8 +65,10 @@ public class inventoryCell : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         print ("not here");
         Color tempText = descPanel.transform.GetChild(0).gameObject.GetComponent<Text>().color;
         Color temp = descPanel.GetComponent<Image>().color;
+        tempText = Color.white;
         temp.a=0.0f;
         tempText.a = 0.0f;
+
         descPanel.transform.GetChild(0).gameObject.GetComponent<Text>().color = tempText;
         descPanel.GetComponent<Image>().color = temp;
         //descPanel.SetActive(false);
@@ -59,6 +78,8 @@ public class inventoryCell : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         if (playerStats.currentWeap.name != "No weapon"){
             _put = playerStats.currentWeap;
             descPanel.transform.GetChild(0).GetComponent<Text>().text = _put.descInfo() + "\n" + loader.loadDesc(_put.descPath) ;
+            Color tempText = Color.white;
+
             playerStats.currentWeap = _weapon;
             playerStats.curPath = _weapon.path;
             print ("Curpath: " + playerStats.curPath);
@@ -69,6 +90,23 @@ public class inventoryCell : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             
             Sprite image = Resources.Load<Sprite>(_weapon.imagePath);
             gameObject.GetComponent<Button>().image.sprite = image;
+            if (_weapon.color != ""){
+            print (_weapon.color);
+            switch (_weapon.color){
+                    case "green":
+                        tempText = Color.green;
+                        break;
+
+                    case "blue":
+                        tempText = Color.blue;
+                        break;
+
+                    case "orange":
+                        tempText = Color.yellow;
+                        break;
+                }
+        }else tempText = Color.white;
+        descPanel.transform.GetChild(0).GetComponent<Text>().color = tempText;
 
         }else {
             playerStats.currentWeap = _weapon;

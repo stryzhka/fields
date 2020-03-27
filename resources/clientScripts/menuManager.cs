@@ -8,6 +8,7 @@ public class menuManager : MonoBehaviour
     public Button exit;
     public GameObject panel;
     private bool isActive;
+    public bool menu;
     void Start()
     {
     	isActive = false;
@@ -29,7 +30,7 @@ public class menuManager : MonoBehaviour
         
     }
     void exitGame(){
-    	playerStats.setAllData();
+    	if (!menu) playerStats.setAllData();
     	Application.Quit();
     }
 }
