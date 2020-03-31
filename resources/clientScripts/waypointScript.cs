@@ -35,7 +35,9 @@ public class waypointScript : MonoBehaviour
     void OnCollisionEnter2D(Collision2D col){
         loader loader = new loader();
         resStats.saveResourcesData();
+
         if (col.gameObject.tag == "Player"){
+            col.gameObject.GetComponent<inventoryManager>().saveWeapons();
             if (secret){
               if (PlayerPrefs.GetInt(secretName) == 0){
                 if (secretName == "secret2"){
