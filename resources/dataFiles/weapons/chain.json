@@ -1,0 +1,1 @@
+{"baseDamage":8, "delay":0.3, "effect":"normal", "name":"Цепь", "effectChance":100, "effectDamage":3, "path":"dataFiles/weapons/chain", "imagePath":"sprites/dataSprites/chain", "price":"75000", "descPath":"dataFiles/weapons/descriptions/chain_d", "color":"blue"}

@@ -1,0 +1,1 @@
+{"baseDamage":4, "delay":0.3, "effect":"zap", "name":"Xoy Beer", "effectChance":30, "effectDamage":3, "path":"dataFiles/weapons/beer", "imagePath":"sprites/dataSprites/beer", "price":"4000", "descPath":"dataFiles/weapons/descriptions/beer_d", "color":"green"}

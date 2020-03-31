@@ -1,0 +1,1 @@
+{"baseDamage":2, "delay":0.1, "effect":"normal", "name":"Sword", "effectChance":3, "effectDamage": 1, "path":"dataFiles/weapons/sword", "imagePath":"sprites/dataSprites/sword", "price":"2500", "descPath":"dataFiles/weapons/descriptions/sword_d"}

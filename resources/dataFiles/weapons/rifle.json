@@ -1,0 +1,1 @@
+{"baseDamage":4, "delay":1.5, "effect":"normal", "name":"Blyatzdec", "effectChance":100, "effectDamage":3, "path":"dataFiles/weapons/rifle", "imagePath":"sprites/dataSprites/rifle", "price":"50000", "descPath":"dataFiles/weapons/descriptions/rifle_d", "type":"ranged", "accuracy":"1", "raysAmount":"3", "color":"orange"}

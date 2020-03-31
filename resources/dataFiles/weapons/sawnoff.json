@@ -1,0 +1,1 @@
+{"baseDamage":6, "delay":1, "effect":"normal", "name":"Sawn off", "effectChance":100, "effectDamage":3, "path":"dataFiles/weapons/sawnoff", "imagePath":"sprites/dataSprites/sawnoff", "price":"20000", "descPath":"dataFiles/weapons/descriptions/sawnoff_d", "type":"ranged", "accuracy":"3", "raysAmount":"3"}

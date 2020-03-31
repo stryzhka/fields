@@ -1,0 +1,1 @@
+{"baseDamage":4, "delay":0.1, "effect":"zap", "name":"Электро-перчатки", "effectChance":50, "effectDamage":1, "path":"dataFiles/weapons/gape", "imagePath":"sprites/dataSprites/gape", "price":"30000", "descPath":"dataFiles/weapons/descriptions/gape_d", "color":"green"}

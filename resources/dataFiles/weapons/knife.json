@@ -1,0 +1,1 @@
+﻿{"baseDamage":1, "delay":0.1, "effect":"normal", "name":"Knife", "effectChance":3, "effectDamage": 1, "path":"dataFiles/weapons/knife", "imagePath":"sprites/dataSprites/knife", "price":"50", "descPath":"dataFiles/weapons/descriptions/knife_d"}

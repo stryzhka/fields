@@ -1,0 +1,1 @@
+{"baseDamage":4, "delay":1, "effect":"zap", "name":"Electric Revolver", "effectChance":20, "effectDamage":4, "path":"dataFiles/weapons/revolver", "imagePath":"sprites/dataSprites/revolver", "price":"35555", "descPath":"dataFiles/weapons/descriptions/revolver_d", "type":"ranged", "accuracy":"2", "raysAmount":"1", "color":"green"}

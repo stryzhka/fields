@@ -1,0 +1,1 @@
+{"baseDamage":11, "delay":0.8, "effect":"normal", "name":"Pickaxe", "effectChance":100, "effectDamage":3, "path":"dataFiles/weapons/pickaxe", "imagePath":"sprites/dataSprites/pickaxe", "price":"19000", "descPath":"dataFiles/weapons/descriptions/pickaxe_d", "color":"green", "instr":"pick"}

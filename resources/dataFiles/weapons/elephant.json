@@ -1,0 +1,1 @@
+{"baseDamage":11, "delay":1, "effect":"normal", "name":"Зеленый слоник", "effectChance":100, "effectDamage":3, "path":"dataFiles/weapons/elephant", "imagePath":"sprites/dataSprites/elephant", "price":"260000", "descPath":"dataFiles/weapons/descriptions/elephant_d", "type":"ranged", "accuracy":0, "color":"orange"}

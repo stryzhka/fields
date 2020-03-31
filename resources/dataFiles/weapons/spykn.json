@@ -1,0 +1,1 @@
+{"baseDamage":17, "delay":0.8, "effect":"normal", "name":"Шпионский нож", "effectChance":100, "effectDamage":3, "path":"dataFiles/weapons/spykn", "imagePath":"sprites/dataSprites/spykn", "price":"125000", "descPath":"dataFiles/weapons/descriptions/spykn_d", "color":"blue"}

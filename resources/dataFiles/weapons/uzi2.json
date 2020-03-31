@@ -1,0 +1,1 @@
+{"baseDamage":3, "delay":0.2, "effect":"normal", "name":"TR-505 v2", "effectChance":100, "effectDamage":3, "path":"dataFiles/weapons/uzi2", "imagePath":"sprites/dataSprites/uzi2", "price":"50000", "descPath":"dataFiles/weapons/descriptions/uzi2_d", "type":"ranged", "accuracy":"0.9", "color":"orange"}

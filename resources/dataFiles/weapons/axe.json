@@ -1,0 +1,1 @@
+{"baseDamage":7, "delay":0.5, "effect":"normal", "name":"Axe", "effectChance":100, "effectDamage":3, "path":"dataFiles/weapons/axe", "imagePath":"sprites/dataSprites/axe", "price":"5000", "descPath":"dataFiles/weapons/descriptions/axe_d", "color":"blue"}

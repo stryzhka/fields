@@ -1,0 +1,1 @@
+{"baseDamage":7, "delay":0.2, "effect":"fire", "name":"Огненный кастет", "effectChance":48, "effectDamage":4, "path":"dataFiles/weapons/knuckles", "imagePath":"sprites/dataSprites/knuckles", "price":"150000", "descPath":"dataFiles/weapons/descriptions/knuckles_d", "color":"green"}

@@ -1,0 +1,1 @@
+{"baseDamage":3, "delay":0.1, "effect":"normal", "name":"Wakizashi", "effectChance":100, "effectDamage":3, "path":"dataFiles/weapons/wakid", "imagePath":"sprites/dataSprites/wakid", "price":"10000", "descPath":"dataFiles/weapons/descriptions/wakid_d", "color":"blue"}

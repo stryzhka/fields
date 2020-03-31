@@ -1,0 +1,1 @@
+{"baseDamage":4, "delay":0.2, "effect":"normal", "name":"Katana", "effectChance":3, "effectDamage": 1, "path":"dataFiles/weapons/katana", "imagePath":"sprites/dataSprites/katana", "price":"9000", "descPath":"dataFiles/weapons/descriptions/katana_d", "color":"green"}

@@ -1,0 +1,1 @@
+{"baseDamage":4, "delay":0.1, "effect":"normal", "name":"Штык", "effectChance":100, "effectDamage":3, "path":"dataFiles/weapons/bayo", "imagePath":"sprites/dataSprites/bayo", "price":"40000", "descPath":"dataFiles/weapons/descriptions/bayo_d", "color":"blue"}
