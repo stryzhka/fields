@@ -15,7 +15,7 @@ public class Weapon : Item
     public int raysAmount;
     public string color;
     public string instr;
-    public Weapon(string t, float ac, string n, string p, string ip, int pr, int bD, float d, string s, int ec, int ed, string dP, int rA, string co, string instr) :base(n, p, pr, ip, dP){
+    public Weapon(string nR, string t, float ac, string n, string p, string ip, int pr, int bD, float d, string s, int ec, int ed, string dP, int rA, string co, string instr) :base(n, p, pr, ip, dP, nR){
 
     	this.baseDamage = bD;
     	this.effect = s;
@@ -32,6 +32,7 @@ public class Weapon : Item
     	return "Type: " + type + "Accuracy: " + accuracy +"Name: " + name + " Damage: " + baseDamage + " Effect: " + effect + " EffectDamage: " + effectDamage + " EffectChance: " + effectChance + " Delay: " + delay;
     }
     public string descInfo(){
-        return name + "\nDamage: " + baseDamage +  "\nSpeed: " + delay + "\nEffect: " + effect + " Effect damage: " + effectDamage + "Effect cnahce: " + effectChance;
+        if (playerStats.lang == "rus") return nameRus + "\nDamage: " + baseDamage +  "\nSpeed: " + delay + "\nEffect: " + effect + " Effect damage: " + effectDamage + "Effect cnahce: " + effectChance;
+        else return name + "\nDamage: " + baseDamage +  "\nSpeed: " + delay + "\nEffect: " + effect + " Effect damage: " + effectDamage + "Effect cnahce: " + effectChance;
     }
 }

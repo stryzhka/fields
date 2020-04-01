@@ -29,6 +29,7 @@ public static class playerStats
    public static float bonusEffectDamage;
    public static float bonusAccuracy;
    public static float bonusSpeed;
+   public static string lang;
   
    public static void setDummyData(){
     Directory.CreateDirectory(Application.persistentDataPath + "/dataFiles/customWeapons/");
@@ -65,6 +66,8 @@ public static class playerStats
     bonusAccuracy = 0;
     bonusSpeed = 0;
     PlayerPrefs.DeleteKey("secret2");
+    lang = PlayerPrefs.GetString("language");
+
    }
    public static void setTutorialData(){
     Directory.CreateDirectory(Application.persistentDataPath + "/dataFiles/customWeapons/");
@@ -124,6 +127,8 @@ public static class playerStats
       bonusEffectDamage = 0;
       bonusAccuracy = 0;
       bonusSpeed = 0;
+      PlayerPrefs.SetString("language", lang);
+      Debug.Log ("LANG: " + lang);
     	//currentWeap = loadWeapons(PlayerPrefs.GetString("inventory1"));
     }
     public static void setDataHp(){
@@ -151,6 +156,8 @@ public static class playerStats
       bonusEffectDamage = 0;
       bonusAccuracy = 0;
       bonusSpeed = 0;
+      PlayerPrefs.SetString("language", lang);
+      Debug.Log ("LANG: " + lang);
     }
     public static void loadAllData(){
    		
@@ -184,6 +191,8 @@ public static class playerStats
       bonusEffectDamage = 0;
       bonusAccuracy = 0;
       bonusSpeed = 0;
+      lang = PlayerPrefs.GetString("language");
+      Debug.Log("LANG: " + lang);
     }
     public static float calculateDamage(){
     	float damage = 0;
