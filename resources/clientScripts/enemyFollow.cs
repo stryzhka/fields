@@ -47,6 +47,7 @@ public class enemyFollow : MonoBehaviour
     public float radius;
     public bool stop;
     public List<GameObject> guts;
+    public int gore;
     void Start()
     {
         canHit = true;
@@ -58,6 +59,8 @@ public class enemyFollow : MonoBehaviour
         running = true;
             player = GameObject.Find("player");
         StartCoroutine(effectsCheck());
+        gore = PlayerPrefs.GetInt("gore");
+        print ("gore: " + gore);
     }
 
     public IEnumerator wait(){
@@ -240,10 +243,26 @@ public class enemyFollow : MonoBehaviour
             giveExp();
             playerStats.money += level * 10;
             playerStats.manageExp();
-            foreach (GameObject g in guts){
-                GameObject gut = Instantiate(g, transform.position, Quaternion.identity);
-                gut.transform.Rotate(new Vector3(0,0,Random.Range(-360,360)));
+            if (gore == 0) print("ok");
+            else if (gore == 1){
+                GameObject gut = Instantiate(guts[guts.Count - 1] , transform.position, Quaternion.identity);
+            }else if (gore == 2){
+                int j = 0;
+                foreach (GameObject g in guts){
+                    if (j < 3){
+                        GameObject gut = Instantiate(g, transform.position, Quaternion.identity);
+                        gut.transform.Rotate(new Vector3(0,0,Random.Range(-360,360)));
+                    }
+                    
+                    j++;
+                }
+            }else{
+                foreach (GameObject g in guts){
+                    GameObject gut = Instantiate(g, transform.position, Quaternion.identity);
+                    gut.transform.Rotate(new Vector3(0,0,Random.Range(-360,360)));
                 }  
+            }
+            
         	Destroy(gameObject);
 
         	
