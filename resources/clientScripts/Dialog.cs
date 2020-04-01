@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class Dialog
 {
-    public string text;
-    public Dialog(string t){
+    public string text, textRus;
+    public Dialog(string t, string tR){
     	this.text = t;
+    	this.textRus = tR;
     } 
 }

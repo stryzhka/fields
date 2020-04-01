@@ -12,17 +12,21 @@ public class dialogNpc : MonoBehaviour
     public int over;
     public GameObject player;
     public Button sellB;
+    bool isRus;
     void Start()
     {
         loader loader = new loader();
         __dialog = loader.loadDialog(path);
         if (isTrader) sellB.onClick.AddListener(sell);
+        if (PlayerPrefs.GetString("language") == "rus") isRus = true;
+        else isRus = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        text.text = __dialog.text;
+        if (!isRus) text.text = __dialog.text;
+        else text.text = __dialog.textRus;
         if (isTrader){
             
             
