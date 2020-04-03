@@ -14,11 +14,12 @@ public class uiUpdater : MonoBehaviour
     public bool doRotating;
     public Text ambDamage;
     public Text fireChance;
+    string lang;
  
     void Start()
     {
         doRotating = false;
-        
+        lang = PlayerPrefs.GetString("language");
     }
 
     // Update is called once per frame
@@ -28,9 +29,20 @@ public class uiUpdater : MonoBehaviour
        moneyText.text = playerStats.money.ToString(); 
        hpText.text = uiHp.ToString(); 
        mPText.text = playerStats.magicEnergy.ToString(); 
-       levelText.text = "Level: " +  playerStats.level; 
-       expText.text = "XP: " + playerStats.exp.ToString(); 
-       expReqText.text = "XP need: " + playerStats.expReq.ToString(); 
+       if (lang == "rus"){
+          levelText.text = "Уровень: " +  playerStats.level; 
+          expText.text = "Опыт: " + playerStats.exp.ToString(); 
+          expReqText.text = "Нужно опыта: " + playerStats.expReq.ToString(); 
+       }
+       
+       else{
+        levelText.text = "Level: " +  playerStats.level; 
+        expText.text = "XP: " + playerStats.exp.ToString(); 
+        expReqText.text = "XP need: " + playerStats.expReq.ToString(); 
+
+        }
+       
+       
        if (doRotating) rotate();
        else hpText.gameObject.transform.localScale = new Vector3(1f, 1f, 1f);
     }

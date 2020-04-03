@@ -23,11 +23,12 @@ public class loader
 	    Debug.Log(_weapon.info());
     	return _weapon;
     }
-    public string loadDesc(string path){
+    public string loadDesc(string path,bool isRus){
         TextAsset ta = Resources.Load<TextAsset>(path);
         string jsonObj = ta.ToString();
         Description _desc = JsonUtility.FromJson<Description>(jsonObj);
-        return _desc.desc;
+        if (isRus) return _desc.descRus;
+        else return _desc.desc;
     }
     public string loadList(string path){
     	TextAsset ta = Resources.Load<TextAsset>(path);

@@ -32,7 +32,7 @@ public class Weapon : Item
     	return "Type: " + type + "Accuracy: " + accuracy +"Name: " + name + " Damage: " + baseDamage + " Effect: " + effect + " EffectDamage: " + effectDamage + " EffectChance: " + effectChance + " Delay: " + delay;
     }
     public string descInfo(){
-        if (playerStats.lang == "rus") return nameRus + "\nDamage: " + baseDamage +  "\nSpeed: " + delay + "\nEffect: " + effect + " Effect damage: " + effectDamage + "Effect cnahce: " + effectChance;
-        else return name + "\nDamage: " + baseDamage +  "\nSpeed: " + delay + "\nEffect: " + effect + " Effect damage: " + effectDamage + "Effect cnahce: " + effectChance;
+        if (playerStats.lang == "eng") return name + "\nDamage: " + baseDamage +  "\nSpeed: " + delay + "\nEffect: " + effect + " Effect damage: " + effectDamage + "Effect cnahce: " + effectChance;
+        else return nameRus + "\nУрон: " + baseDamage +  "\nСкорость: " + delay + "\nЭффект: " + effect + " Урон от эффекта: " + effectDamage + "Шанс срабатывания: " + effectChance;
     }
 }

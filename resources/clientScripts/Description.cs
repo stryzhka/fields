@@ -5,7 +5,9 @@ using UnityEngine;
 public class Description
 {
     public string desc;
-    public Description(string d){
+    public string descRus;
+    public Description(string d, string dR){
     	this.desc = d;
+    	this.descRus = dR;
     }
 }

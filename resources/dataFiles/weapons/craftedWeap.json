@@ -1,1 +1,1 @@
-{"baseDamage":0, "delay":0, "effect":"normal", "name":"Crafted ", "effectChance":0, "effectDamage":0, "path":"dataFiles/weapons/craftedWeap", "imagePath":"sprites/dataSprites/axe", "price":"5000", "descPath":"dataFiles/weapons/descriptions/craftedWeap_d"}
+{"baseDamage":0, "delay":0, "effect":"normal", "name":"Crafted ","nameRus":"Самодельный", "effectChance":0, "effectDamage":0, "path":"dataFiles/weapons/craftedWeap", "imagePath":"sprites/dataSprites/axe", "price":"5000", "descPath":"dataFiles/weapons/descriptions/craftedWeap_d"}

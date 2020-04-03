@@ -1,1 +1,1 @@
-{"baseDamage":3, "delay":0.2, "effect":"slag", "name":"Slagging Serp", "effectChance":20, "effectDamage":3, "path":"dataFiles/weapons/slagserp", "imagePath":"sprites/dataSprites/slagserp", "price":"8000", "descPath":"dataFiles/weapons/descriptions/slagserp_d", "color":"green"}
+{"baseDamage":3, "delay":0.2, "effect":"slag", "name":"Slagging Serp","nameRus":"Шлаковый серп", "effectChance":20, "effectDamage":3, "path":"dataFiles/weapons/slagserp", "imagePath":"sprites/dataSprites/slagserp", "price":"8000", "descPath":"dataFiles/weapons/descriptions/slagserp_d", "color":"green"}

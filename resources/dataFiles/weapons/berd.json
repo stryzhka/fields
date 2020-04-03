@@ -1,1 +1,1 @@
-{"baseDamage":10, "delay":0.4, "effect":"normal", "name":"Бердыш", "effectChance":100, "effectDamage":3, "path":"dataFiles/weapons/berd", "imagePath":"sprites/dataSprites/berd", "price":"100000", "descPath":"dataFiles/weapons/descriptions/berd_d", "color":"green"}
+{"baseDamage":10, "delay":0.4, "effect":"normal", "name":"Bardiche", "nameRus":"Бердыш", "effectChance":100, "effectDamage":3, "path":"dataFiles/weapons/berd", "imagePath":"sprites/dataSprites/berd", "price":"100000", "descPath":"dataFiles/weapons/descriptions/berd_d", "color":"green"}

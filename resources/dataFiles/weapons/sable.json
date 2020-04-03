@@ -1,1 +1,1 @@
-{"baseDamage":5, "delay":0.2, "effect":"normal", "name":"Small sable", "effectChance":3, "effectDamage": 1, "path":"dataFiles/weapons/sable", "imagePath":"sprites/dataSprites/sabre", "price":"2000", "descPath":"dataFiles/weapons/descriptions/sable_d", "color":"green"}
+{"baseDamage":5, "delay":0.2, "effect":"normal", "name":"Small sable", "nameRus":"Сабля", "effectChance":3, "effectDamage": 1, "path":"dataFiles/weapons/sable", "imagePath":"sprites/dataSprites/sabre", "price":"2000", "descPath":"dataFiles/weapons/descriptions/sable_d", "color":"green"}

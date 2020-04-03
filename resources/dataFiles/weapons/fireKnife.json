@@ -1,1 +1,1 @@
-{"baseDamage":1, "delay":0.1, "effect":"fire", "name":"Firing Knife", "effectChance":10, "effectDamage":1, "path":"dataFiles/weapons/fireKnife", "imagePath":"sprites/dataSprites/fireKnife", "price":"1000", "descPath":"dataFiles/weapons/descriptions/fireKnife_d"}
+{"baseDamage":1, "delay":0.1, "effect":"fire", "name":"Firing Knife","nameRus":"Горящий перочинный нож",  "effectChance":10, "effectDamage":1, "path":"dataFiles/weapons/fireKnife", "imagePath":"sprites/dataSprites/fireKnife", "price":"1000", "descPath":"dataFiles/weapons/descriptions/fireKnife_d"}

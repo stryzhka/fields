@@ -1,1 +1,1 @@
-{"baseDamage":8, "delay":0.1, "effect":"normal", "name":"Канцелярские ножницы", "effectChance":100, "effectDamage":3, "path":"dataFiles/weapons/scis", "imagePath":"sprites/dataSprites/scis", "price":"90000", "descPath":"dataFiles/weapons/descriptions/scis_d", "color":"green"}
+{"baseDamage":8, "delay":0.1, "effect":"normal", "name":"Scissors","nameRus":"Ножницы", "effectChance":100, "effectDamage":3, "path":"dataFiles/weapons/scis", "imagePath":"sprites/dataSprites/scis", "price":"90000", "descPath":"dataFiles/weapons/descriptions/scis_d", "color":"green"}

@@ -12,6 +12,8 @@ public class inventoryCell : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     public string path;
     public GameObject descPanel;
     public loader loader;
+    bool lang;
+    string temp;
     void Start()
     {
         //_weapon = new Weapon(10, 0.01f, "normal", "Dick");
@@ -21,6 +23,9 @@ public class inventoryCell : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         path = _weapon.path;
         
         loader = new loader();
+        temp = PlayerPrefs.GetString("language");
+        if (temp == "rus") lang = true;
+        else lang = false;
     }
 
     // Update is called once per frame
@@ -30,8 +35,8 @@ public class inventoryCell : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
-        descPanel.transform.GetChild(0).GetComponent<Text>().text = _weapon.descInfo() + "\n" + loader.loadDesc(_weapon.descPath) ;
-        print ("descript:" + loader.loadDesc(_weapon.descPath));
+        descPanel.transform.GetChild(0).GetComponent<Text>().text = _weapon.descInfo() + "\n" + loader.loadDesc(_weapon.descPath, lang) ;
+        print ("descript:" + loader.loadDesc(_weapon.descPath, lang));
         print ("here");
         Color tempText = descPanel.transform.GetChild(0).gameObject.GetComponent<Text>().color;
         Color temp = descPanel.GetComponent<Image>().color;
@@ -77,7 +82,7 @@ public class inventoryCell : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     	print("Now item " + _weapon.name);
         if (playerStats.currentWeap.name != "No weapon"){
             _put = playerStats.currentWeap;
-            descPanel.transform.GetChild(0).GetComponent<Text>().text = _put.descInfo() + "\n" + loader.loadDesc(_put.descPath) ;
+            descPanel.transform.GetChild(0).GetComponent<Text>().text = _put.descInfo() + "\n" + loader.loadDesc(_put.descPath, lang) ;
             Color tempText = Color.white;
 
             playerStats.currentWeap = _weapon;
