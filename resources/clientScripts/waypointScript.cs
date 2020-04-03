@@ -15,6 +15,7 @@ public class waypointScript : MonoBehaviour
     public Text tipsText;
     public GameObject tipsPanel;
     public Dropdown skillsDropdown;
+    bool isRus;
     void Start()
     {
         if (PlayerPrefs.GetInt("load") == 1 && set)
@@ -29,6 +30,8 @@ public class waypointScript : MonoBehaviour
         tmp.a = 0;
         tipsPanel.GetComponent<Image>().color = tmp;
         skillsDropdown = GameObject.Find("skillsDropdown").GetComponent<Dropdown>();
+        if (PlayerPrefs.GetString("language") == "rus") isRus = true;
+        else isRus = false;
     }
 
 
@@ -47,7 +50,8 @@ public class waypointScript : MonoBehaviour
                         Color tmp = tipsPanel.GetComponent<Image>().color;
                         tmp.a = 1;
                         tipsPanel.GetComponent<Image>().color = tmp;
-                        tipsText.text = loader.loadList("dataFiles/weapons/tips");
+                        if (isRus) tipsText.text = loader.loadList("dataFiles/weapons/tipsRus");
+                        else tipsText.text = loader.loadList("dataFiles/weapons/tips");
                         PlayerPrefs.SetInt("dropdown", skillsDropdown.value);
                         SceneManager.LoadScene(scene, LoadSceneMode.Single);
                     }
