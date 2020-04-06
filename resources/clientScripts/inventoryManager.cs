@@ -16,6 +16,8 @@ public class inventoryManager : MonoBehaviour
     public GameObject descPanel;
     public GameObject ambManager;
     public GameObject skillsDropdown, skillLabel;
+    public Image currentWeap;
+    bool isRus;
     void Start()
     {
         isActive = false;
@@ -25,6 +27,9 @@ public class inventoryManager : MonoBehaviour
         ambManager = GameObject.Find("ambManager");
         skillsDropdown = GameObject.Find("skillsDropdown");
         skillLabel = GameObject.Find("skillLabel");
+        if (PlayerPrefs.GetString("language") == "rus") isRus = true;
+        isRus = false;
+        currentWeap.sprite = Resources.Load<Sprite>(playerStats.currentWeap.imagePath);
     }
 
     // Update is called once per frame
@@ -49,7 +54,8 @@ public class inventoryManager : MonoBehaviour
         		isCleaning = true;
         		cleanInventoryEntries();
         } 
-        currentWeapText.text = "Current weapon: " + playerStats.currentWeap.name;
+        if (!isRus) currentWeapText.text = playerStats.currentWeap.name;
+        else currentWeapText.text = playerStats.currentWeap.nameRus;
         
         
     }

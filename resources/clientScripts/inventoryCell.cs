@@ -13,6 +13,7 @@ public class inventoryCell : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     public loader loader;
     bool lang;
     string temp;
+    Image currentWeapImg;
     void Start()
     {
         //_weapon = new Weapon(10, 0.01f, "normal", "Dick");
@@ -25,7 +26,7 @@ public class inventoryCell : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         temp = PlayerPrefs.GetString("language");
         if (temp == "rus") lang = true;
         else lang = false;
-        
+        currentWeapImg = GameObject.Find("currentWeapImg").GetComponent<Image>();
     }
 
     // Update is called once per frame
@@ -97,6 +98,7 @@ public class inventoryCell : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             
             Sprite image = Resources.Load<Sprite>(_weapon.imagePath);
             gameObject.GetComponent<Button>().image.sprite = image;
+            currentWeapImg.sprite = Resources.Load<Sprite>(playerStats.currentWeap.imagePath);
             if (_weapon.color != ""){
             print (_weapon.color);
             switch (_weapon.color){
