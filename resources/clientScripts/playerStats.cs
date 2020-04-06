@@ -67,7 +67,7 @@ public static class playerStats
     bonusSpeed = 0;
     PlayerPrefs.DeleteKey("secret2");
     lang = PlayerPrefs.GetString("language");
-
+    speed = 3;
    }
    public static void setTutorialData(){
     Directory.CreateDirectory(Application.persistentDataPath + "/dataFiles/customWeapons/");
@@ -100,6 +100,7 @@ public static class playerStats
     bonusEffectDamage = 0;
     bonusAccuracy = 0;
     bonusSpeed = 0;
+    speed = 3;
    }
    public static void setAllData(){
    		Debug.Log("Money: " + money);
@@ -129,6 +130,7 @@ public static class playerStats
       bonusSpeed = 0;
       PlayerPrefs.SetString("language", lang);
       Debug.Log ("LANG: " + lang);
+      speed = 3;
     	//currentWeap = loadWeapons(PlayerPrefs.GetString("inventory1"));
     }
     public static void setDataHp(){
@@ -158,6 +160,7 @@ public static class playerStats
       bonusSpeed = 0;
       PlayerPrefs.SetString("language", lang);
       Debug.Log ("LANG: " + lang);
+      speed = 3;
     }
     public static void loadAllData(){
    		
@@ -196,9 +199,10 @@ public static class playerStats
     }
     public static float calculateDamage(){
     	float damage = 0;
-      int r = Random.Range(0, 100);
-      if (r <= 100){
-        damage = currentWeap.baseDamage + ambDamage + Random.Range(0, 1);
+      int r = Random.Range(0, 50);
+      if (r <= 20){
+        float add = currentWeap.baseDamage / 100 * ambDamage;
+        damage = currentWeap.baseDamage + add + Random.Range(0, 1);
         }else damage = currentWeap.baseDamage + Random.Range(0, 1);
     	
     	return damage;

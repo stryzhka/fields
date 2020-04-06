@@ -20,7 +20,7 @@ public class ambCell : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     	path = _amb.path;
     	//playerStats.ambDamage += _amb.buff;
         print (_amb.param);
-        if (_amb.param == "damage") playerStats.ambDamage += playerStats.currentWeap.baseDamage / 100 * _amb.buff;
+        if (_amb.param == "damage") playerStats.ambDamage += _amb.buff;
         if (_amb.param == "chance"){
             playerStats.chance += _amb.buff;
             var sprite = Resources.Load<Sprite>("sprites/dataSprites/fireAmb");
@@ -30,6 +30,7 @@ public class ambCell : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             playerStats.resist += _amb.buff;
             var sprite = Resources.Load<Sprite>("sprites/dataSprites/resistAmb");
             gameObject.GetComponent<Button>().image.sprite = sprite;
+            print ("now resist is: " + playerStats.resist);
         }
         if (_amb.param == "regen"){
                 
@@ -37,6 +38,7 @@ public class ambCell : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                 var sprite = Resources.Load<Sprite>("sprites/dataSprites/regenAmb");
                 gameObject.GetComponent<Button>().image.sprite = sprite;
                 print ("regen add " + playerStats.maxHp / 100 * _amb.buff);
+                print ("now regen is: " + playerStats.regen);
         }
         if (_amb.param == "critical"){
             playerStats.critical += _amb.buff;

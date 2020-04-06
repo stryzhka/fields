@@ -24,11 +24,30 @@ public class playerDataInit : MonoBehaviour
         resStats.loadResourcesData();
         } 
       print ("DATA LOADED");
+      print ("resist is: " + playerStats.resist);
+      print ("now regen is: " + playerStats.regen);
       StartCoroutine(regenerate());
       skillsDropdown = GameObject.Find("skillsDropdown").GetComponent<Dropdown>();
       skillsDropdown.value = PlayerPrefs.GetInt("dropdown");
+      if (playerStats.currentWeap.rareID == "regen"){
+            print ("get to regen: " + playerStats.currentWeap.rareBuff);
+            playerStats.regen += playerStats.currentWeap.rareBuff;
+            print ("now regen is: " + playerStats.regen);
+      }
+      if (playerStats.currentWeap.rareID == "resist"){
+            print ("get to resist: " + playerStats.currentWeap.rareBuff);
+            playerStats.resist += playerStats.currentWeap.rareBuff;
+            print ("now resist is: " + playerStats.resist);
+      }
+      if (playerStats.currentWeap.rareID == "speed"){
+            print ("wow i am speedy");
+            playerStats.speed = 6;
+           
+      }
     }
+    void Awake(){
 
+    }
     public IEnumerator regenerate(){
         while (true){
             yield return new WaitForSeconds(11f);

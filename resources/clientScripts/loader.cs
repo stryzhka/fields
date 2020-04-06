@@ -37,14 +37,7 @@ public class loader
         List <string> drops = dr.drops;
         return drops[Random.Range(0, drops.Count)];
     }
-    public Treasure loadTr(string path){
-    	TextAsset ta = Resources.Load<TextAsset>(path);
-        string jsonObj = ta.ToString();
-        //Debug.Log(jsonObj);
-	    Treasure _treas = JsonUtility.FromJson<Treasure>(jsonObj);
-	    Debug.Log(_treas);
-    	return _treas;
-    }
+    
     public Dialog loadDialog(string path){
     	TextAsset ta = Resources.Load<TextAsset>(path);
         string jsonObj = ta.ToString();

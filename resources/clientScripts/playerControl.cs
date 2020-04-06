@@ -24,13 +24,20 @@ public class playerControl : MonoBehaviour
             if (Input.GetKey("2")){
                 if (isAndr)
                 transform.position = Vector2.MoveTowards(transform.position, target, playerStats.speed*Time.deltaTime); 
-                else 
-                transform.position = Vector2.MoveTowards(transform.position, target, fastSpeed*Time.deltaTime); 
+                else{
+                    transform.position = Vector2.MoveTowards(transform.position, target, fastSpeed*Time.deltaTime); 
+                } 
+                
             }else {
                 if (isAndr)
                 transform.position = Vector2.MoveTowards(transform.position, target, playerStats.speed*Time.deltaTime);   
-                else
-                transform.position = Vector2.MoveTowards(transform.position, target, movingSpeed*Time.deltaTime); 
+                else{
+                    if (playerStats.currentWeap.rareID == "speed"){
+                        transform.position = Vector2.MoveTowards(transform.position, target, fastSpeed*Time.deltaTime); 
+                    }else
+                    transform.position = Vector2.MoveTowards(transform.position, target, movingSpeed*Time.deltaTime); 
+                }
+                
             }
     		
     	}

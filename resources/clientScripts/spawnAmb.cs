@@ -9,7 +9,7 @@ public class spawnAmb : MonoBehaviour
     public GameObject ambButton;
     public GameObject Content;
     public GameObject skillsDropdown, arrow, skillLabel;
-    bool dev;
+    public bool dev;
     void Start()
     {
         skillsDropdown = GameObject.Find("skillsDropdown");

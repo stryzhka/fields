@@ -15,7 +15,7 @@ public class Weapon : Item
     public int raysAmount;
     public string color;
     public string instr;
-    public Weapon(string nR, string t, float ac, string n, string p, string ip, int pr, int bD, float d, string s, int ec, int ed, string dP, int rA, string co, string instr) :base(n, p, pr, ip, dP, nR){
+    public Weapon(string nR, string t, float ac, string n, string p, string ip, int pr, int bD, float d, string s, int ec, int ed, string dP, int rA, string co, string instr, string eID, int eB) :base(n, p, pr, ip, dP, nR, eID, eB){
 
     	this.baseDamage = bD;
     	this.effect = s;
@@ -32,7 +32,23 @@ public class Weapon : Item
     	return "Type: " + type + "Accuracy: " + accuracy +"Name: " + name + " Damage: " + baseDamage + " Effect: " + effect + " EffectDamage: " + effectDamage + " EffectChance: " + effectChance + " Delay: " + delay;
     }
     public string descInfo(){
-        if (playerStats.lang == "eng") return name + "\nDamage: " + baseDamage +  "\nSpeed: " + delay + "\nEffect: " + effect + " Effect damage: " + effectDamage + "Effect cnahce: " + effectChance;
-        else return nameRus + "\nУрон: " + baseDamage +  "\nСкорость: " + delay + "\nЭффект: " + effect + " Урон от эффекта: " + effectDamage + "Шанс срабатывания: " + effectChance;
+        string descName = name + "\nDamage: " + baseDamage +  "\nSpeed: " + delay + "\nEffect: " + effect + " Effect damage: " + effectDamage + "Effect cnahce: " + effectChance;
+        string descNameRus = nameRus + "\nУрон: " + baseDamage +  "\nСкорость: " + delay + "\nЭффект: " + effect + " Урон от эффекта: " + effectDamage + "Шанс срабатывания: " + effectChance;
+        
+        if (playerStats.lang == "eng"){
+            if (rareID == "regen"){
+                descName += "\nMEDIC!";
+                
+            }
+            return descName;
+            } 
+        else{
+            if (rareID == "regen"){
+                descNameRus += "\nМЕДИК!";
+                
+            }
+            return descNameRus;
+            
+        } 
     }
 }

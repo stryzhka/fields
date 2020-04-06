@@ -20,7 +20,6 @@ public class clickable : MonoBehaviour
     public Button ambButton;
     public string effect;
     public Weapon weapon;
-    public Treasure treas;
     public Ambition amb;
     public Sprite image;
     void Start()
@@ -50,12 +49,7 @@ public class clickable : MonoBehaviour
 				
 				
 				break;
-			case "treasure":
-				treas = loader.loadTr(trPath);
-				image = Resources.Load<Sprite>(treas.imagePath);
-				
-        		player = GameObject.Find("player");
-				break;
+			
             case "ambition":
                 player = GameObject.Find("player");
                 break;
