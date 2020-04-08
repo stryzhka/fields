@@ -46,7 +46,7 @@ public class spawnAmb : MonoBehaviour
                     print ("r: " + r);
                     Ambition Ambit = new Ambition(berserk[r], Random.Range(playerStats.level, playerStats.level + 3), name, "", false);
                     if (berserk[r] == "critical"){
-                        if (playerStats.critical <= 15) Ambit.buff = Random.Range(playerStats.level, playerStats.level + 1);
+                        if (playerStats.critical <= 10) Ambit.buff = Random.Range(playerStats.level, playerStats.level + 1);
                         else Ambit.buff = 1;
                     } 
                     _ambButton.GetComponent<ambCell>()._amb = Ambit;

@@ -1,1 +1,1 @@
-{"baseDamage":10, "delay":0.4, "effect":"normal", "name":"Sai","nameRus":"Саи", "effectChance":100, "effectDamage":3, "path":"dataFiles/weapons/sai", "imagePath":"sprites/dataSprites/sai", "price":"100000", "descPath":"dataFiles/weapons/descriptions/sai_d", "color":"blue"}
+{"baseDamage":10, "delay":0.4, "effect":"normal", "name":"Sai","nameRus":"Саи", "effectChance":100, "effectDamage":3, "path":"dataFiles/weapons/sai", "imagePath":"sprites/dataSprites/bigsai", "price":"100000", "descPath":"dataFiles/weapons/descriptions/sai_d", "color":"blue"}
