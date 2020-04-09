@@ -14,6 +14,7 @@ public class inventoryCell : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     bool lang;
     string temp;
     Image currentWeapImg;
+    Image effect;
     void Start()
     {
         //_weapon = new Weapon(10, 0.01f, "normal", "Dick");
@@ -26,7 +27,23 @@ public class inventoryCell : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         temp = PlayerPrefs.GetString("language");
         if (temp == "rus") lang = true;
         else lang = false;
+        effect = GameObject.Find("effect").GetComponent<Image>();
         currentWeapImg = GameObject.Find("currentWeapImg").GetComponent<Image>();
+                    switch (playerStats.currentWeap.effect){
+                        case "slag":
+                            effect.sprite = Resources.Load<Sprite>("sprites/dataSprites/slagIcon");
+                            break;
+                        case "fire":
+                            effect.sprite = Resources.Load<Sprite>("sprites/dataSprites/fireIcon");
+                            break;
+                        case "zap":
+                            effect.sprite = Resources.Load<Sprite>("sprites/dataSprites/zapIcon");
+                            break;
+                        case "normal":
+                            effect.sprite = Resources.Load<Sprite>("sprites/dataSprites/noeffect");
+                            break;
+                    }
+            
     }
 
     // Update is called once per frame
@@ -99,6 +116,21 @@ public class inventoryCell : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             Sprite image = Resources.Load<Sprite>(_weapon.imagePath);
             gameObject.GetComponent<Button>().image.sprite = image;
             currentWeapImg.sprite = Resources.Load<Sprite>(playerStats.currentWeap.imagePath);
+                print("effect: " + playerStats.currentWeap.effect);
+                    switch (playerStats.currentWeap.effect){
+                        case "slag":
+                            effect.sprite = Resources.Load<Sprite>("sprites/dataSprites/slagIcon");
+                            break;
+                        case "fire":
+                            effect.sprite = Resources.Load<Sprite>("sprites/dataSprites/fireIcon");
+                            break;
+                        case "zap":
+                            effect.sprite = Resources.Load<Sprite>("sprites/dataSprites/zapIcon");
+                            break;
+                        case "normal":
+                            effect.sprite = Resources.Load<Sprite>("sprites/dataSprites/noeffect");
+                            break;
+                    }
             if (_weapon.color != ""){
             print (_weapon.color);
             switch (_weapon.color){

@@ -6,9 +6,11 @@ using UnityEngine.UI;
 public class playerDataInit : MonoBehaviour
 {
    public bool training;
-   private bool dev;
+   bool dev;
    GameObject player;
    Dropdown skillsDropdown;
+   Image currentWeapImg;
+   Image effect;
     void Start()
     {
         
@@ -44,6 +46,23 @@ public class playerDataInit : MonoBehaviour
             playerStats.speed = 6;
            
       }
+      effect = GameObject.Find("effect").GetComponent<Image>();
+      if (playerStats.currentWeap.effect != "normal"){
+        print("effect: " + playerStats.currentWeap.effect);
+            switch (playerStats.currentWeap.effect){
+                case "slag":
+                    effect.sprite = Resources.Load<Sprite>("sprites/dataSprites/slagIcon");
+                    break;
+                case "fire":
+                    effect.sprite = Resources.Load<Sprite>("sprites/dataSprites/fireIcon");
+                    break;
+                case "zap":
+                    effect.sprite = Resources.Load<Sprite>("sprites/dataSprites/zapIcon");
+                    break;
+            }
+        }
+        currentWeapImg = GameObject.Find("currentWeapImg").GetComponent<Image>();
+        currentWeapImg.sprite = Resources.Load<Sprite>(playerStats.currentWeap.imagePath);
     }
     void Awake(){
 

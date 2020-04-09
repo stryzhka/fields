@@ -84,6 +84,8 @@ public class weaponCrafting : MonoBehaviour
 	    		int sumM = sum - (int)accMoney;
 	    		print ("sumM: " + sumM);
 	    		playerStats.money -= sumM;
+	    		resStats.ironCount -= iron;
+	    		resStats.woodCount -= wood;
 	    	}
 	    	GameObject _box = Instantiate(box, player.position, Quaternion.identity);
 	    	if (text.text != "") weapon.name = text.text;

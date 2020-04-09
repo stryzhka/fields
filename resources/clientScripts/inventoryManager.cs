@@ -16,8 +16,7 @@ public class inventoryManager : MonoBehaviour
     public GameObject descPanel;
     public GameObject ambManager;
     public GameObject skillsDropdown, skillLabel;
-    public Image currentWeap;
-    public Image effect;
+    
     bool isRus;
     void Start()
     {
@@ -29,23 +28,11 @@ public class inventoryManager : MonoBehaviour
         skillsDropdown = GameObject.Find("skillsDropdown");
         skillLabel = GameObject.Find("skillLabel");
         if (PlayerPrefs.GetString("language") == "rus") isRus = true;
-        isRus = false;
-        print ("ADP: ");
-        currentWeap.sprite = Resources.Load<Sprite>(playerStats.currentWeap.imagePath);
+        else isRus = false;
 
-        if (playerStats.currentWeap.effect != "normal"){
-            switch (playerStats.currentWeap.effect){
-                case "slag":
-                    effect.sprite = Resources.Load<Sprite>("sprites/dataSprites/slagIcon");
-                    break;
-                case "fire":
-                    effect.sprite = Resources.Load<Sprite>("sprites/dataSprites/fireIcon");
-                    break;
-                case "zap":
-                    effect.sprite = Resources.Load<Sprite>("sprites/dataSprites/zapIcon");
-                    break;
-            }
-        }
+        
+
+        
     }
 
     // Update is called once per frame
@@ -74,6 +61,9 @@ public class inventoryManager : MonoBehaviour
         else currentWeapText.text = playerStats.currentWeap.nameRus;
         
         
+    }
+    void Awake(){
+        //
     }
     void openInventory(){
     	if (isActive){

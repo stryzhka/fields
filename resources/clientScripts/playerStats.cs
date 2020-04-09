@@ -87,10 +87,8 @@ public static class playerStats
     curPath = "dataFiles/weapons/knife";
     hatPath = "sprites/hats/empty";
     PlayerPrefs.DeleteKey("secret1");
-    weapons = new List<Weapon>();
-    weapons.Add(loader.loadWeapon("dataFiles/weapons/knife"));
-    Debug.Log(weapons[0].name);
-    currentWeap = weapons[0];
+    PlayerPrefs.DeleteKey("secret2");
+    currentWeap = loader.loadWeapon("dataFiles/weapons/knife");;
     for (int i = 0; i < 30; ++i){
           PlayerPrefs.DeleteKey("ambition" + i);
         }

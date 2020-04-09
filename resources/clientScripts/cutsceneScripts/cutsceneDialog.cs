@@ -7,6 +7,7 @@ public class cutsceneDialog : MonoBehaviour
 {
     public bool activated;
     public List<string> loc;
+    public List<string> locRus;
     public List<enemyFollow> enemies;
     public Text loc1t;
     public GameObject dialogUI;
@@ -22,6 +23,7 @@ public class cutsceneDialog : MonoBehaviour
     public List<GameObject> colliders;
     public GameObject hpUi;
     public GameObject gr1, gr2;
+    bool isRus;
     void Start()
     {
     	canTalk = true;
@@ -31,6 +33,8 @@ public class cutsceneDialog : MonoBehaviour
         //activated = true;
         hpUi.SetActive(false);
         next.GetComponent<Button>().onClick.AddListener(nextState);
+        if (PlayerPrefs.GetString("language") == "rus") isRus = true;
+        else isRus = false;
     }
 
     // Update is called once per frame
@@ -55,8 +59,8 @@ public class cutsceneDialog : MonoBehaviour
     	int temp = loc.Count - iter;
     	if (canTalk){
     		if (iter < loc.Count){
-
-    			loc1t.text = loc[iter];
+                if (isRus) loc1t.text = locRus[iter];
+    			else loc1t.text = loc[iter];
     			iter++;
                 if (iter == 0 || iter == 2 || iter == 4 || iter == 6){
                     gr1.SetActive(true);
@@ -72,7 +76,8 @@ public class cutsceneDialog : MonoBehaviour
     		
 
     		if (temp == 2){
-    			bText.text = "Конец диалога";
+    			if (isRus) bText.text = "Конец диалога";
+                else bText.text = "End";
     			canTalk = false;
 
     			} 
