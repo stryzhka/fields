@@ -38,7 +38,8 @@ public class waypointScript : MonoBehaviour
     void OnCollisionEnter2D(Collision2D col){
         loader loader = new loader();
         resStats.saveResourcesData();
-
+        playerStats.setAllData();
+        playerStats.saveSkin();
         if (col.gameObject.tag == "Player"){
             col.gameObject.GetComponent<inventoryManager>().saveWeapons();
             if (secret){
@@ -71,7 +72,7 @@ public class waypointScript : MonoBehaviour
               }
                 
             }else{
-                playerStats.setAllData();
+                
             PlayerPrefs.SetString("currentWay", gameObject.name);
             PlayerPrefs.SetFloat("x", x);
             PlayerPrefs.SetFloat("y", x);

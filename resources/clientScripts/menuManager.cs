@@ -30,7 +30,11 @@ public class menuManager : MonoBehaviour
         
     }
     void exitGame(){
-    	if (!menu) playerStats.setAllData();
+    	if (!menu){
+            playerStats.setAllData();
+            
+            } 
+            playerStats.saveSkin();
     	Application.Quit();
     }
 }

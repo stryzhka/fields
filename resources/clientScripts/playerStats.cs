@@ -24,6 +24,7 @@ public static class playerStats
    public static float chance;
    public static float resist;
    public static string hatPath;
+   public static string skinPath;
    public static float regen;
    public static float critical;
    public static float bonusEffectDamage;
@@ -54,6 +55,7 @@ public static class playerStats
    	Debug.Log(weapons[0].name);
    	currentWeap = weapons[0];
     hatPath = "sprites/hats/empty";
+    skinPath = "sprites/skins/skinDefault";
     PlayerPrefs.DeleteKey("secret1");
     for (int i = 0; i < 30; ++i){
           PlayerPrefs.DeleteKey("ambition" + i);
@@ -86,6 +88,7 @@ public static class playerStats
     resist = 0;
     curPath = "dataFiles/weapons/knife";
     hatPath = "sprites/hats/empty";
+    skinPath = "sprites/skins/skinDefault";
     PlayerPrefs.DeleteKey("secret1");
     PlayerPrefs.DeleteKey("secret2");
     currentWeap = loader.loadWeapon("dataFiles/weapons/knife");;
@@ -116,8 +119,9 @@ public static class playerStats
     	PlayerPrefs.SetFloat("maxPlayerHp", maxHp);
     	PlayerPrefs.SetFloat("curDamage", damage);
       //PlayerPrefs.SetInt("inventoryLimit", inventoryLimit);
-      PlayerPrefs.SetString("curPath", curPath);
+      //PlayerPrefs.SetString("curPath", curPath);
       PlayerPrefs.SetString("hatPath", hatPath);
+      
       chance = 0;
       resist = 0;
       speed = 3;
@@ -148,6 +152,7 @@ public static class playerStats
       //PlayerPrefs.SetInt("inventoryLimit", inventoryLimit);
       PlayerPrefs.SetString("curPath", curPath);
       PlayerPrefs.SetString("hatPath", hatPath);
+      //PlayerPrefs.SetString("skinPath", skinPath);
       chance = 0;
       resist = 0;
       speed = 3;
@@ -173,6 +178,7 @@ public static class playerStats
       inventoryLimit = 14;
       curPath = PlayerPrefs.GetString("curPath");
       hatPath = PlayerPrefs.GetString("hatPath");
+      //skinPath = PlayerPrefs.GetString("skinPath");
       Debug.Log("info loaded");
       Debug.Log("Money: " + money);
       Debug.Log("level:" + level);
@@ -194,6 +200,14 @@ public static class playerStats
       bonusSpeed = 0;
       lang = PlayerPrefs.GetString("language");
       Debug.Log("LANG: " + lang);
+    }
+    public static void saveSkin(){
+      PlayerPrefs.SetString("skinPath", skinPath);
+      Debug.Log("SKIN SAVED: " + skinPath);
+    }
+    public static void loadskin(){
+      skinPath = PlayerPrefs.GetString("skinPath");
+      Debug.Log("SKIN LOADED: " + skinPath);
     }
     public static float calculateDamage(){
     	float damage = 0;

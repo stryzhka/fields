@@ -11,11 +11,13 @@ public class playerDataInit : MonoBehaviour
    Dropdown skillsDropdown;
    Image currentWeapImg;
    Image effect;
+   skinChanger sC;
     void Start()
     {
         
         dev = false;
       //playerStats.setDummyData();
+        sC = GameObject.Find("skin").GetComponent<skinChanger>();
       if (training){
         loader loader = new loader();
         playerStats.setTutorialData();
@@ -23,6 +25,8 @@ public class playerDataInit : MonoBehaviour
         } 
       else{
         playerStats.loadAllData();
+        playerStats.loadskin();
+        sC.changeSkin();
         resStats.loadResourcesData();
         } 
       print ("DATA LOADED");

@@ -23,6 +23,7 @@ public class cutsceneDialog : MonoBehaviour
     public List<GameObject> colliders;
     public GameObject hpUi;
     public GameObject gr1, gr2;
+    public bool isBoss;
     bool isRus;
     void Start()
     {
@@ -31,7 +32,7 @@ public class cutsceneDialog : MonoBehaviour
         is1 = false;
         boss = false;
         //activated = true;
-        hpUi.SetActive(false);
+        if (isBoss) hpUi.SetActive(false);
         next.GetComponent<Button>().onClick.AddListener(nextState);
         if (PlayerPrefs.GetString("language") == "rus") isRus = true;
         else isRus = false;
@@ -62,7 +63,8 @@ public class cutsceneDialog : MonoBehaviour
                 if (isRus) loc1t.text = locRus[iter];
     			else loc1t.text = loc[iter];
     			iter++;
-                if (iter == 0 || iter == 2 || iter == 4 || iter == 6){
+
+                if (iter == 0 || iter == 2 || iter == 4 || iter == 6 || iter == 8 || iter == 10 || iter == 12 || iter == 14 || iter == 16 || iter == 18){
                     gr1.SetActive(true);
                     gr2.SetActive(false);
                 }
@@ -84,14 +86,18 @@ public class cutsceneDialog : MonoBehaviour
 
     	}else{
     		activated = false;
-    		boss = true;
+    		if (isBoss){
+                boss = true;
+                mus.Play();
+                s1.StartCoroutine(s1.direction());
+                s1.active = true;
+                } boss = true;
     		dialogUI.SetActive(false);
-    		mus.Play();
-    		s1.StartCoroutine(s1.direction());
-    		s1.active = true;
+    		
+    		
     		ui.SetActive(true);
             foreach (GameObject g in colliders) Destroy(g);
-            hpUi.SetActive(true);
+            if (isBoss) hpUi.SetActive(true);
             //foreach (enemyFollow eF in enemies) eF.enabled = true;
     		Destroy(gameObject);
     	}

@@ -1,1 +1,1 @@
-﻿{"baseDamage":1, "delay":0.5, "effect":"normal", "name":"No weapon","nameRus":"Без оружия", "effectChance":3, "effectDamage": 1, "path":"dataFiles/weapons/knife", "imagePath":"sprites/dataSprites/noweap", "price":"0"}
+﻿{"baseDamage":1, "delay":0.5, "effect":"normal", "name":"No weapon","nameRus":"Без оружия", "effectChance":3, "effectDamage": 1, "path":"dataFiles/weapons/noweap", "imagePath":"sprites/dataSprites/noweapon","descPath":"dataFiles/descriptions/noweap_d", "price":"0"}
