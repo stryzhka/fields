@@ -117,20 +117,7 @@ public class inventoryCell : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             gameObject.GetComponent<Button>().image.sprite = image;
             currentWeapImg.sprite = Resources.Load<Sprite>(playerStats.currentWeap.imagePath);
                 print("effect: " + playerStats.currentWeap.effect);
-                    switch (playerStats.currentWeap.effect){
-                        case "slag":
-                            effect.sprite = Resources.Load<Sprite>("sprites/dataSprites/slagIcon");
-                            break;
-                        case "fire":
-                            effect.sprite = Resources.Load<Sprite>("sprites/dataSprites/fireIcon");
-                            break;
-                        case "zap":
-                            effect.sprite = Resources.Load<Sprite>("sprites/dataSprites/zapIcon");
-                            break;
-                        case "normal":
-                            effect.sprite = Resources.Load<Sprite>("sprites/dataSprites/noeffect");
-                            break;
-                    }
+                    effects();
             if (_weapon.color != ""){
             print (_weapon.color);
             switch (_weapon.color){
@@ -155,6 +142,10 @@ public class inventoryCell : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             playerStats.curPath = _weapon.path;
             print ("Curpath: " + playerStats.curPath);
             playerStats.find(path, "inventory");
+            effects();
+            Sprite image = Resources.Load<Sprite>(_weapon.imagePath);
+            gameObject.GetComponent<Button>().image.sprite = image;
+            currentWeapImg.sprite = Resources.Load<Sprite>(playerStats.currentWeap.imagePath);
             Destroy(gameObject);
             
             
@@ -196,5 +187,21 @@ public class inventoryCell : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
                 playerStats.speed = 6;
         }
         else print ("sorry, no rare effect");
+    }
+    void effects(){
+        switch (playerStats.currentWeap.effect){
+                        case "slag":
+                            effect.sprite = Resources.Load<Sprite>("sprites/dataSprites/slagIcon");
+                            break;
+                        case "fire":
+                            effect.sprite = Resources.Load<Sprite>("sprites/dataSprites/fireIcon");
+                            break;
+                        case "zap":
+                            effect.sprite = Resources.Load<Sprite>("sprites/dataSprites/zapIcon");
+                            break;
+                        case "normal":
+                            effect.sprite = Resources.Load<Sprite>("sprites/dataSprites/noeffect");
+                            break;
+                    }
     }
 }

@@ -193,6 +193,7 @@ public class sandsBossBehaviour : MonoBehaviour
             hpUi.SetActive(false);
     		Destroy(gameObject);
             waypoint.SetActive(true);
+            PlayerPrefs.SetInt("toGigapolis", 1);
     	}
     }
 }

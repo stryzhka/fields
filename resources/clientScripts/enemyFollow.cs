@@ -222,8 +222,8 @@ public class enemyFollow : MonoBehaviour
                     } 
                 print("PATH: " + _box.GetComponent<clickable>().weaponPath);
                 _box.GetComponent<clickable>().weapons = weapons;
-                player.GetComponent<inventoryManager>().isActive = true;
-                player.GetComponent<inventoryManager>().ambManager.GetComponent<ambitionManager>().isActive = true;
+                //player.GetComponent<inventoryManager>().isActive = true;
+                //player.GetComponent<inventoryManager>().ambManager.GetComponent<ambitionManager>().isActive = true;
                 break;
 
         }
@@ -246,20 +246,36 @@ public class enemyFollow : MonoBehaviour
             if (gore == 0) print("ok");
             else if (gore == 1){
                 GameObject gut = Instantiate(guts[guts.Count - 1] , transform.position, Quaternion.identity);
+                if (burning) Destroy(gut);
             }else if (gore == 2){
                 int j = 0;
                 foreach (GameObject g in guts){
                     if (j < 3){
                         GameObject gut = Instantiate(g, transform.position, Quaternion.identity);
                         gut.transform.Rotate(new Vector3(0,0,Random.Range(-360,360)));
+                        print ("burning death");
+                        gut.GetComponent<SpriteRenderer>().color = Color.black;
+                        
                     }
                     
                     j++;
                 }
             }else{
+                int j = 0;
                 foreach (GameObject g in guts){
-                    GameObject gut = Instantiate(g, transform.position, Quaternion.identity);
-                    gut.transform.Rotate(new Vector3(0,0,Random.Range(-360,360)));
+                    
+                    if (burning){
+                        if (j < 3){
+                            GameObject gut = Instantiate(g, transform.position, Quaternion.identity);
+                            gut.transform.Rotate(new Vector3(0,0,Random.Range(-360,360)));
+                            print ("burning death");
+                            gut.GetComponent<SpriteRenderer>().color = Color.black;
+                        }
+                            j++;
+                        }else{
+                            GameObject gut = Instantiate(g, transform.position, Quaternion.identity);
+                            gut.transform.Rotate(new Vector3(0,0,Random.Range(-360,360)));
+                        }
                 }  
             }
             
@@ -305,6 +321,7 @@ public class enemyFollow : MonoBehaviour
     	//print (canHit);
         
     	getDamage("ranged");
+
         
 	}
     public void getDamage(string type){
@@ -324,7 +341,8 @@ public class enemyFollow : MonoBehaviour
         }
     }
     void calcDamage(string t){
-        int crit = Random.Range(0, 100);
+        int crit = Random.Range(1, 100);
+        Vector3 posR = new Vector3(Random.Range(-0.2f,1), Random.Range(-0.2f,1), 0);
         if (canHit){
                 player.GetComponent<soundController>().zapSound.Stop();
                 float damage = playerStats.calculateDamage();
@@ -338,10 +356,28 @@ public class enemyFollow : MonoBehaviour
                     if (crit <= playerStats.critical){
                     print ("CRITICAL HIT!");
                     hp -= damage * 2.5f;
+                    
+                    GameObject critText = Instantiate(player.GetComponent<initCanvas>().canvas.gameObject, transform.position + posR, Quaternion.identity);
+                    critText.transform.GetChild(0).GetComponent<Text>().text = "CRITICAL!";
+                    critText.transform.GetChild(0).GetComponent<Text>().color = Color.red;
                     }else
                     
                     hp -= damage;    
+                    GameObject c = Instantiate(player.GetComponent<initCanvas>().canvas.gameObject, transform.position + posR, Quaternion.identity);
+                    c.transform.GetChild(0).GetComponent<Text>().text = ((int)(damage*10)/10).ToString();
+                    switch(playerStats.currentWeap.effect){
+                        case "fire":
+                            Color temp = new Color(255 / 256f, 165/256f, 0);
+                            c.transform.GetChild(0).GetComponent<Text>().color = temp;
+                            break;
+                        case "zap":
+                            c.transform.GetChild(0).GetComponent<Text>().color = Color.yellow;
+                            break;
 
+                        case "slag":
+                            c.transform.GetChild(0).GetComponent<Text>().color = Color.magenta;
+                            break;
+                    }
                 } 
                 switch(playerStats.currentWeap.effect){
                     case "fire": 

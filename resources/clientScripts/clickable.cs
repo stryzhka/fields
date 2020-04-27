@@ -11,6 +11,7 @@ public class clickable : MonoBehaviour
     public int gHp;
     public string weaponPath;
     public string hatPath;
+    public string skinPath;
     public string trPath;
     public string ambPath;
     public Text weaponText;
@@ -22,12 +23,15 @@ public class clickable : MonoBehaviour
     public Weapon weapon;
     public Ambition amb;
     public Sprite image;
+    bool isRus;
+    public bool custom;
     void Start()
     {
 
         player = GameObject.Find("player");
     	loader loader = new loader();
-
+        if (PlayerPrefs.GetString("language") == "rus") isRus = true;
+        else isRus = false;
     	//Sprite image = Resources.Load<Sprite>("sprites/hats/empty");
     	
     	switch(gameObject.name){
@@ -59,6 +63,7 @@ public class clickable : MonoBehaviour
                 print("hatPath: " + hatPath);
                 image = img;
                 break;
+            
         }
         //image.size = 1;
     	
@@ -70,15 +75,22 @@ public class clickable : MonoBehaviour
 
     // Update is called once per frame
     void modifiers(){
+        List<string> namesRus = new List<string>();
         List<string> names = new List<string>();
-        names.Add("Необычный ");
-        names.Add("Странный ");
-        names.Add("Переделанный ");
-        names.Add("Улучшенный ");
+        namesRus.Add("Необычный ");
+        namesRus.Add("Странный ");
+        namesRus.Add("Переделанный ");
+        namesRus.Add("Улучшенный ");
+        names.Add("Clockwork ");
+        names.Add("Strange ");
+        names.Add("Unusual ");
+        names.Add("Modified ");
         float r = Random.Range(0f, 1f);
-        if (r <= 0.08f){
+        print ("random for modifier: " + r);
+        if (r <= 0.08f || custom){
             gameObject.tag = "custom";
-            weapon.name = names[Random.Range(0, names.Count)] + weapon.name;
+            if (isRus) weapon.name = namesRus[Random.Range(0, names.Count)] + weapon.nameRus;
+            else weapon.name = names[Random.Range(0, names.Count)] + weapon.name;
             weapon.baseDamage += Random.Range(1, playerStats.level - 1);
         }   
     }
@@ -108,13 +120,16 @@ public class clickable : MonoBehaviour
                             weapon.effect = effect;
                             weapon.effectDamage = playerStats.generateDamage();
                             weapon.effectChance = Random.Range(1, 40);
-                            weapon.name += " Fire";
+                            if (isRus) weapon.nameRus += " Стихийный";
+                            else weapon.name += "Fire";
                             loader.saveWeapon(weapon, weapon.effect);
                             break;
                         case "slag":
                             weapon.effect = effect;
                             weapon.effectDamage = playerStats.generateDamage();
                             weapon.effectChance = Random.Range(1, 40);
+                            if (isRus) weapon.nameRus += " Стихийный";
+                            else
                             weapon.name += " Slag";
                             loader.saveWeapon(weapon, weapon.effect);
                             break;
@@ -122,6 +137,8 @@ public class clickable : MonoBehaviour
                             weapon.effect = effect;
                             weapon.effectDamage = playerStats.generateDamage();
                             weapon.effectChance = Random.Range(1, 40);
+                            if (isRus) weapon.nameRus += " Стихийный";
+                            else 
                             weapon.name += " Zapping";
                             loader.saveWeapon(weapon, weapon.effect);
                             break;
@@ -163,7 +180,7 @@ public class clickable : MonoBehaviour
                 print(player.transform.GetChild(1).GetChild(0));
                 playerStats.hatPath = hatPath;
                 Sprite img = Resources.Load<Sprite>(hatPath);
-                player.transform.GetChild(1).GetChild(0).GetComponent<SpriteRenderer>().sprite = img;
+                player.transform.GetChild(2).GetChild(0).GetComponent<SpriteRenderer>().sprite = img;
                 Destroy(gameObject);
                 
                 break;

@@ -33,6 +33,8 @@ public static class playerStats
    public static string lang;
   
    public static void setDummyData(){
+    PlayerPrefs.DeleteKey("sandsBoss");
+    PlayerPrefs.DeleteKey("gigapolis");
     Directory.CreateDirectory(Application.persistentDataPath + "/dataFiles/customWeapons/");
     Directory.CreateDirectory(Application.persistentDataPath + "/dataFiles/ambitions/");
    	loader loader = new loader();
@@ -56,11 +58,12 @@ public static class playerStats
    	currentWeap = weapons[0];
     hatPath = "sprites/hats/empty";
     skinPath = "sprites/skins/skinDefault";
+    PlayerPrefs.SetString("skinPath", skinPath);
     PlayerPrefs.DeleteKey("secret1");
     for (int i = 0; i < 30; ++i){
           PlayerPrefs.DeleteKey("ambition" + i);
         }
-    setAllData();
+    
     speed = 3;
     regen = 0;
     critical = 0;
@@ -68,8 +71,12 @@ public static class playerStats
     bonusAccuracy = 0;
     bonusSpeed = 0;
     PlayerPrefs.DeleteKey("secret2");
+    PlayerPrefs.DeleteKey("secret3");
     lang = PlayerPrefs.GetString("language");
     speed = 3;
+    PlayerPrefs.SetInt("toGigapolis", 0);
+    setAllData();
+    if (PlayerPrefs.GetString("language") != "eng" && PlayerPrefs.GetString("language") != "rus") PlayerPrefs.SetString("language", "eng");
    }
    public static void setTutorialData(){
     Directory.CreateDirectory(Application.persistentDataPath + "/dataFiles/customWeapons/");
@@ -102,6 +109,7 @@ public static class playerStats
     bonusAccuracy = 0;
     bonusSpeed = 0;
     speed = 3;
+    PlayerPrefs.SetInt("toGigapolis", 0);
    }
    public static void setAllData(){
    		Debug.Log("Money: " + money);
@@ -119,7 +127,7 @@ public static class playerStats
     	PlayerPrefs.SetFloat("maxPlayerHp", maxHp);
     	PlayerPrefs.SetFloat("curDamage", damage);
       //PlayerPrefs.SetInt("inventoryLimit", inventoryLimit);
-      //PlayerPrefs.SetString("curPath", curPath);
+      PlayerPrefs.SetString("curPath", curPath);
       PlayerPrefs.SetString("hatPath", hatPath);
       
       chance = 0;
@@ -211,9 +219,10 @@ public static class playerStats
     }
     public static float calculateDamage(){
     	float damage = 0;
-      int r = Random.Range(0, 50);
-      if (r <= 20){
+      int r = Random.Range(0, 100);
+      if (r <= 50){
         float add = currentWeap.baseDamage / 100 * ambDamage;
+        Debug.Log("extra damage: " + add);
         damage = currentWeap.baseDamage + add + Random.Range(0, 1);
         }else damage = currentWeap.baseDamage + Random.Range(0, 1);
     	

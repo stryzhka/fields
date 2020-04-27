@@ -48,6 +48,10 @@ public class spawnAmb : MonoBehaviour
                     if (berserk[r] == "critical"){
                         if (playerStats.critical <= 10) Ambit.buff = Random.Range(playerStats.level, playerStats.level + 1);
                         else Ambit.buff = 1;
+                    }
+                    if (berserk[r] == "damage"){
+                        if (playerStats.ambDamage <= 50) Ambit.buff = playerStats.level * 2;
+                        else Ambit.buff = 1;
                     } 
                     _ambButton.GetComponent<ambCell>()._amb = Ambit;
                     break;

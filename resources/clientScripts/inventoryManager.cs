@@ -18,6 +18,7 @@ public class inventoryManager : MonoBehaviour
     public GameObject skillsDropdown, skillLabel;
     
     bool isRus;
+    bool dev;
     void Start()
     {
         isActive = false;
@@ -29,7 +30,7 @@ public class inventoryManager : MonoBehaviour
         skillLabel = GameObject.Find("skillLabel");
         if (PlayerPrefs.GetString("language") == "rus") isRus = true;
         else isRus = false;
-
+        dev = false;
         
 
         
@@ -53,10 +54,14 @@ public class inventoryManager : MonoBehaviour
         		openInventory();
 
         	} 
-        if (Input.GetKeyDown("u")){
-        		isCleaning = true;
-        		cleanInventoryEntries();
-        } 
+        if (dev){
+            if (Input.GetKeyDown("u")){
+                isCleaning = true;
+                cleanInventoryEntries();
+                //cleaning all inventory
+            }
+        }
+         
         if (!isRus) currentWeapText.text = playerStats.currentWeap.name;
         else currentWeapText.text = playerStats.currentWeap.nameRus;
         

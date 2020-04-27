@@ -11,11 +11,22 @@ public class ambitionManager : MonoBehaviour
     public loader loader;
     public Button _button;
     public GameObject ambBox;
+    public Text ambDamage, bonusAccuracy, resist, regen, critical, bonusEffectDamage, bonusSpeed;
+    bool isRus;
     void Start()
     {
         loader = new loader();
         loadAmbitions();
         playerStats.ambDamage = 0;
+        ambDamage = GameObject.Find("ambDamage").GetComponent<Text>();
+        bonusAccuracy = GameObject.Find("bonusAccuracy").GetComponent<Text>();
+        resist = GameObject.Find("resist").GetComponent<Text>();
+        regen = GameObject.Find("regen").GetComponent<Text>();
+        critical = GameObject.Find("critical").GetComponent<Text>();
+        bonusEffectDamage = GameObject.Find("bonusEffectDamage").GetComponent<Text>();
+        bonusSpeed = GameObject.Find("bonusSpeed").GetComponent<Text>();
+        if (PlayerPrefs.GetString("language") == "rus") isRus = true;
+        else isRus = false;
         //calculateAmbitions();
     }
 
@@ -33,6 +44,27 @@ public class ambitionManager : MonoBehaviour
             _ambBox.GetComponent<clickable>().amb = Ambit;
             playerStats.isDropping = false;
         }*/
+        if (isRus){
+            ambDamage.text = "Дополнительный урон: " + playerStats.ambDamage.ToString() + "%";
+            bonusSpeed.text = "Базовая скорость: " + playerStats.speed.ToString() + "%";
+            bonusAccuracy.text = "Бонус к точности: " + playerStats.bonusAccuracy.ToString() + "%";
+            resist.text = "Бонус к сопротивлению: " + playerStats.resist.ToString() + "%";
+            regen.text = "Регенерация здоровья: " + playerStats.regen.ToString() + "%";
+            critical.text = "Шанс критического удара: " + playerStats.critical.ToString() + "%"; 
+            bonusEffectDamage.text = "Бонусный элементальный урон: " + playerStats.bonusEffectDamage.ToString() + "%";
+            
+        }else{
+            ambDamage.text = "Extra damage: " + playerStats.ambDamage.ToString() + "%";
+            bonusSpeed.text = "Speed: " + playerStats.speed.ToString() + "";
+            bonusAccuracy.text = "Bonus accuracy: " + playerStats.bonusAccuracy.ToString() + "%";
+            resist.text = "Damage resist: " + playerStats.resist.ToString() + "%";
+            regen.text = "Health regeneration: " + playerStats.regen.ToString() + "%";
+            critical.text = "Critical hit chance: " + playerStats.critical.ToString() + "%"; 
+            bonusEffectDamage.text = "Bonus effect damage: " + playerStats.bonusEffectDamage.ToString() + "%";
+        }
+        
+
+
     }
     void activeCheck(){
     	if (Input.GetKeyDown("i")){

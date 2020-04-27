@@ -67,6 +67,9 @@ public class playerDataInit : MonoBehaviour
         }
         currentWeapImg = GameObject.Find("currentWeapImg").GetComponent<Image>();
         currentWeapImg.sprite = Resources.Load<Sprite>(playerStats.currentWeap.imagePath);
+        if (playerStats.skinPath == "sprites/skins/skin1"){
+          playerStats.bonusAccuracy += 4; 
+        }
     }
     void Awake(){
 

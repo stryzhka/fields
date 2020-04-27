@@ -16,9 +16,10 @@ public class waypointScript : MonoBehaviour
     public GameObject tipsPanel;
     public Dropdown skillsDropdown;
     bool isRus;
+    public bool toG;
     void Start()
     {
-        if (PlayerPrefs.GetInt("load") == 1 && set)
+        if (PlayerPrefs.GetString("currentWay") == gameObject.name && set)
         GameObject.Find("player").transform.position = new Vector3(x, y, z);
         else print ("аутизм");
         print(PlayerPrefs.GetString("currentWay"));
@@ -32,6 +33,16 @@ public class waypointScript : MonoBehaviour
         skillsDropdown = GameObject.Find("skillsDropdown").GetComponent<Dropdown>();
         if (PlayerPrefs.GetString("language") == "rus") isRus = true;
         else isRus = false;
+        if (toG){
+            if (PlayerPrefs.GetInt("toGigapolis") == 1){
+                print ("ok go");
+                
+            }
+            else{
+                print ("nah");
+                gameObject.SetActive(false);
+            }
+        }
     }
 
 
@@ -40,6 +51,7 @@ public class waypointScript : MonoBehaviour
         resStats.saveResourcesData();
         playerStats.setAllData();
         playerStats.saveSkin();
+
         if (col.gameObject.tag == "Player"){
             col.gameObject.GetComponent<inventoryManager>().saveWeapons();
             if (secret){
@@ -62,7 +74,8 @@ public class waypointScript : MonoBehaviour
                     Color tmp = tipsPanel.GetComponent<Image>().color;
                         tmp.a = 1;
                         tipsPanel.GetComponent<Image>().color = tmp;
-                    tipsText.text = loader.loadList("dataFiles/weapons/tips");
+                    if (isRus) tipsText.text = loader.loadList("dataFiles/weapons/tipsRus");
+                    else tipsText.text = loader.loadList("dataFiles/weapons/tips");
                     PlayerPrefs.SetInt("dropdown", skillsDropdown.value);
                     SceneManager.LoadScene(scene, LoadSceneMode.Single);
                 }
@@ -77,10 +90,7 @@ public class waypointScript : MonoBehaviour
             PlayerPrefs.SetFloat("x", x);
             PlayerPrefs.SetFloat("y", x);
             PlayerPrefs.SetFloat("z", x);
-            if (loadPos)
-            PlayerPrefs.SetInt("load", 1);
-            else
-            PlayerPrefs.SetInt("load", 0);
+            
 
             if (scene == "city2"){
                 PlayerPrefs.SetString("city", "city2");
@@ -92,10 +102,16 @@ public class waypointScript : MonoBehaviour
                 print ("ok");
                 print (PlayerPrefs.GetString("city"));
             }
+            if (scene == "city4"){
+                PlayerPrefs.SetString("city", "city4");
+                print ("ok");
+                print (PlayerPrefs.GetString("city"));
+            }
                 Color tmp = tipsPanel.GetComponent<Image>().color;
                         tmp.a = 1;
                         tipsPanel.GetComponent<Image>().color = tmp;
-                tipsText.text = loader.loadList("dataFiles/weapons/tips");
+                if (isRus) tipsText.text = loader.loadList("dataFiles/weapons/tipsRus");
+                else tipsText.text = loader.loadList("dataFiles/weapons/tips");
                 PlayerPrefs.SetInt("dropdown", skillsDropdown.value);
                 SceneManager.LoadScene(scene, LoadSceneMode.Single);
             }

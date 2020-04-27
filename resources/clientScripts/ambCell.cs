@@ -10,6 +10,7 @@ public class ambCell : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public Ambition _amb;
     public string path;
     public GameObject descPanel;
+    bool isRus;
     void Start()
     {
     	descPanel = GameObject.Find("descPanel");
@@ -60,6 +61,8 @@ public class ambCell : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             var sprite = Resources.Load<Sprite>("sprites/dataSprites/wSpeed");
             gameObject.GetComponent<Button>().image.sprite = sprite;
         }
+        if (PlayerPrefs.GetString("language") == "rus") isRus = true;
+        else isRus = false;
 
     }
 
@@ -83,7 +86,46 @@ public class ambCell : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         tempText.a = 1.0f;
         descPanel.GetComponent<Image>().color = temp;
         descPanel.transform.GetChild(0).gameObject.GetComponent<Text>().color = tempText;
-        descPanel.transform.GetChild(0).GetComponent<Text>().text = _amb.name + " " + "Getting " + _amb.buff + "% to "  + _amb.param;  /*+ _weapon.descInfo()*/;
+            string ambName = "";
+            string ambNameRus = "";
+            switch (_amb.param){
+                case "damage":
+                    ambName = "to damage";
+                    ambNameRus = "к урону";
+                    print ("NAME: " + ambName);
+                    break;
+                case "chance":
+                    ambName = "to effect chance";
+                    ambNameRus = "к шансу нанести стихийный урон";
+                    break;    
+                case "resist":
+                    ambName = "to resist";
+                    ambNameRus = "к сопротивлению";
+                    break;
+                case "regen":
+                    ambName = "to health regeneration";
+                    ambNameRus = "к восстановлению здоровья";
+                    break;
+                case "critical":
+                    ambName = "to critical hit chance";
+                    ambNameRus = "к шансу нанести критический урон";
+                    break;
+                case "eDmg":
+                    ambName = "to effect damage";
+                    ambNameRus = "к стихийному урону";
+                    break;
+                case "accuracy":
+                    ambName = "to ranged weapon accuracy";
+                    ambNameRus = "к точности оружия";
+                    break;
+                case "wSpeed":
+                    ambName = "to ranged weapon speed";
+                    ambNameRus = "к скорострельности оружия";
+                    break;
+                }
+
+                if (isRus) descPanel.transform.GetChild(0).gameObject.GetComponent<Text>().text = _amb.buff + "% " + ambNameRus;
+                else descPanel.transform.GetChild(0).gameObject.GetComponent<Text>().text = _amb.buff + "% " + ambName;
         
    }
  

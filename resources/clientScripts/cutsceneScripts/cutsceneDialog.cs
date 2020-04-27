@@ -13,7 +13,7 @@ public class cutsceneDialog : MonoBehaviour
     public GameObject dialogUI;
     public Button next;
     public Text bText;
-    int iter;
+    public int iter;
     public bool is1;
     public bool canTalk;
     public GameObject ui;
@@ -24,7 +24,13 @@ public class cutsceneDialog : MonoBehaviour
     public GameObject hpUi;
     public GameObject gr1, gr2;
     public bool isBoss;
+    public AudioClip[] soundRus;
+    public AudioClip[] sound;
+    public AudioSource source;
     bool isRus;
+    string alread;
+    public bool activating;
+    public string actName;
     void Start()
     {
     	canTalk = true;
@@ -34,8 +40,22 @@ public class cutsceneDialog : MonoBehaviour
         //activated = true;
         if (isBoss) hpUi.SetActive(false);
         next.GetComponent<Button>().onClick.AddListener(nextState);
-        if (PlayerPrefs.GetString("language") == "rus") isRus = true;
+        if (PlayerPrefs.GetString("language") == "rus"){isRus = true;
+        print ("RUSSIAN AND??");
+        }
         else isRus = false;
+        alread = "not touched";
+        if (PlayerPrefs.GetString(actName) == "activated"){
+            print ("activated!!!");
+            gameObject.SetActive(false);
+            dialogUI.SetActive(false);
+            boss = true;
+            mus.Play();
+            s1.StartCoroutine(s1.direction());
+            s1.active = true;
+            hpUi.SetActive(true);
+            foreach (GameObject g in colliders) Destroy(g);
+        }else print ("poka net");
     }
 
     // Update is called once per frame
@@ -44,7 +64,8 @@ public class cutsceneDialog : MonoBehaviour
         if (activated){
         	dialogUI.SetActive(true);
         	ui.SetActive(false);
-        	loc1t.text = loc[iter];
+        	if (!isRus) loc1t.text = loc[iter];
+            else loc1t.text = locRus[iter];
         	is1 = false;
         }else{
         	dialogUI.SetActive(false);
@@ -53,16 +74,50 @@ public class cutsceneDialog : MonoBehaviour
         }
     }
     void OnCollisionEnter2D (Collision2D col){
-    	if (col.gameObject.name == "player") activated = true;
+    	
+        
+        
+        if (isRus){
+
+                    source.clip = soundRus[iter];
+                    } 
+                else{
+                    
+                    source.clip = sound[iter];
+                }
+                if (!activated){
+                    print (activated);
+                    source.Play();
+                }
+                
+
+        if (col.gameObject.name == "player") activated = true;
     }
 
     void nextState(){
     	int temp = loc.Count - iter;
     	if (canTalk){
     		if (iter < loc.Count){
-                if (isRus) loc1t.text = locRus[iter];
-    			else loc1t.text = loc[iter];
+                if (isRus){
+                    loc1t.text = locRus[iter];
+                    
+
+                    } 
+    			else{
+                    loc1t.text = loc[iter];
+                    
+                }
+                
     			iter++;
+                if (isRus){
+                    source.clip = soundRus[iter];
+                    print ("SO??");
+                    } 
+                else{
+
+                    source.clip = sound[iter];
+                }
+                source.Play();
 
                 if (iter == 0 || iter == 2 || iter == 4 || iter == 6 || iter == 8 || iter == 10 || iter == 12 || iter == 14 || iter == 16 || iter == 18){
                     gr1.SetActive(true);
@@ -99,6 +154,7 @@ public class cutsceneDialog : MonoBehaviour
             foreach (GameObject g in colliders) Destroy(g);
             if (isBoss) hpUi.SetActive(true);
             //foreach (enemyFollow eF in enemies) eF.enabled = true;
+            if (activating) PlayerPrefs.SetString(actName, "activated");
     		Destroy(gameObject);
     	}
     		
